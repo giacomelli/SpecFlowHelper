@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DocsByReflection</name>
+    </assembly>
+    <members>
+        <member name="T:DocsByReflection.DocsService">
+            <summary>
+            Utility class to provide documentation for various types where available with the assembly
+            </summary>
+        </member>
+        <member name="F:DocsByReflection.DocsService.s_cache">
+            <summary>
+            A cache used to remember Xml documentation for assemblies
+            </summary>
+        </member>
+        <member name="F:DocsByReflection.DocsService.s_failCache">
+            <summary>
+            A cache used to store failure exceptions for assembly lookups
+            </summary>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromMember(System.Reflection.MethodBase,System.Boolean)">
+            <summary>
+            Provides the documentation comments for a specific method
+            </summary>
+            <param name="method">The MethodInfo (reflection data ) of the member to find documentation for</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The XML fragment describing the method</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromMember(System.Reflection.MemberInfo,System.Boolean)">
+            <summary>
+            Provides the documentation comments for a specific member.
+            </summary>
+            <param name="member">The MemberInfo (reflection data) or the member to find documentation for</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The XML fragment describing the member</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromParameter(System.Reflection.ParameterInfo,System.Boolean)">
+            <summary>
+            Provides the documentation comments for a specific parameter.
+            </summary>
+            <param name="parameter">The ParameterInfo (reflection data) to find documentation for.</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The XML fragment describing the paramter.</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromType(System.Type,System.Boolean)">
+            <summary>
+            Provides the documentation comments for a specific type
+            </summary>
+            <param name="type">Type to find the documentation for</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The XML fragment that describes the type</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromAssembly(System.Reflection.Assembly,System.Boolean)">
+            <summary>
+            Obtains the documentation file for the specified assembly
+            </summary>
+            <param name="assembly">The assembly to find the XML document for</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The XML document</returns>
+            <remarks>This version uses a cache to preserve the assemblies, so that 
+            the XML file is not loaded and parsed on every single lookup</remarks>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromName(System.Type,System.Char,System.String,System.Boolean)">
+            <summary>
+            Obtains the XML Element that describes a reflection element by searching the 
+            members for a member that has a name that describes the element.
+            </summary>
+            <param name="type">The type or parent type, used to fetch the assembly</param>
+            <param name="prefix">The prefix as seen in the name attribute in the documentation XML</param>
+            <param name="name">Where relevant, the full name qualifier for the element</param>
+            <param name="throwError">If should throw error when documentation is not found. Default is true.</param>
+            <returns>The member that has a name that describes the specified reflection element</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetXmlFromAssemblyNonCached(System.Reflection.Assembly)">
+            <summary>
+            Loads and parses the documentation file for the specified assembly
+            </summary>
+            <param name="assembly">The assembly to find the XML document for</param>
+            <returns>The XML document</returns>
+        </member>
+        <member name="M:DocsByReflection.DocsService.GetTypeFullNameForXmlDoc(System.Type,System.Boolean)">
+            <summary>
+            Gets the type's full name prepared for xml documentation format.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="isMethodParameter">If the type is being used has a method parameter.</param>
+            <returns>The full name.</returns>
+        </member>
+        <member name="T:DocsByReflection.DocsByReflectionException">
+            <summary>
+            An exception thrown by the DocsByReflection library
+            </summary>
+        </member>
+        <member name="M:DocsByReflection.DocsByReflectionException.#ctor">
+            <summary>
+            Initializes a new <see cref="T:DocsByReflection.DocsByReflectionException"/> class.
+            </summary>
+        </member>
+        <member name="M:DocsByReflection.DocsByReflectionException.#ctor(System.String)">
+            <summary>
+            Initializes a new <see cref="T:DocsByReflection.DocsByReflectionException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:DocsByReflection.DocsByReflectionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new <see cref="T:DocsByReflection.DocsByReflectionException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.ArgumentNullException">The <paramref name="info"/> parameter is null. </exception>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"/> is zero (0). </exception>
+        </member>
+        <member name="M:DocsByReflection.DocsByReflectionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new exception instance with the specified
+            error message and a reference to the inner exception that is the cause of
+            this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or null if none.</param>
+        </member>
+        <member name="T:DocsByReflection.PathHelper">
+            <summary>
+            Internal path helper.
+            </summary>
+        </member>
+        <member name="M:DocsByReflection.PathHelper.GetAssemblyDocFileNameFromCodeBase(System.String)">
+            <summary>
+            Gets the assembly document file name from code base.
+            </summary>
+            <returns>The assembly document file name from code base.</returns>
+            <param name="assemblyCodeBase">Assemby code base.</param>
+        </member>
+    </members>
+</doc>

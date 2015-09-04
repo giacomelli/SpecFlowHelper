@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skahal.Infrastructure.Repositories.EntityFramework</name>
+    </assembly>
+    <members>
+        <member name="T:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2">
+            <summary>
+            Entity framework repository base class.
+            </summary>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.#ctor(System.Func{System.Data.Entity.DbContext})">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2"/> class.
+            </summary>
+            <param name="getContext">The func to the context.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.CountAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Counts all entities that matches the filter.
+            </summary>
+            <returns>The number of the entities that matches the filter.</returns>
+            <param name="filter">Filter.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.FindAll(System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Finds all entities that matches the filter.
+            </summary>
+            <returns>The found entities.</returns>
+            <param name="offset">The offset to start the result.</param>
+            <param name="limit">The result count limit.</param>
+            <param name="filter">The entities filter.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.FindAllAscending``1(System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Finds all entities that matches the filter in a ascending order.
+            </summary>
+            <returns>The found entities.</returns>
+            <param name="offset">The offset to start the result.</param>
+            <param name="limit">The result count limit.</param>
+            <param name="filter">The entities filter.</param>
+            <param name="orderBy">The order.</param>
+            <typeparam name="TOrderByKey">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.FindAllDescending``1(System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Finds all entities that matches the filter in a descending order.
+            </summary>
+            <returns>The found entities.</returns>
+            <param name="offset">The offset to start the result.</param>
+            <param name="limit">The result count limit.</param>
+            <param name="filter">The entities filter.</param>
+            <param name="orderBy">The order.</param>
+            <typeparam name="TOrderByKey">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.FindBy(System.Object)">
+            <summary>
+            Finds the entity by the key.
+            </summary>
+            <returns>The found entity.</returns>
+            <param name="key">Key.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.PersistDeletedItem(`0)">
+            <summary>
+            Persists the deleted item.
+            </summary>
+            <param name="item">Item.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.PersistNewItem(`0)">
+            <summary>
+            Persists the new item.
+            </summary>
+            <param name="item">Item.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.PersistUpdatedItem(`0)">
+            <summary>
+            Persists the updated item.
+            </summary>
+            <param name="item">Item.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.LogQuery(System.Linq.IQueryable{`0})">
+            <summary>
+            Logs the query.'    
+            </summary>
+            <param name="query">Query.</param>
+        </member>
+        <member name="P:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.Context">
+            <summary>
+            Gets the context.
+            </summary>
+            <value>The context.</value>
+        </member>
+        <member name="P:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.DbSet">
+            <summary>
+            Gets the db set.
+            </summary>
+            <value>The db set.</value>
+        </member>
+        <member name="P:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryBase`2.DbQuery">
+            <summary>
+            Gets the db query.
+            </summary>
+            <value>The db query.</value>
+        </member>
+        <member name="T:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryLongIdBase`1">
+            <summary>
+            An EntityFramework repository using long id.
+            </summary>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryLongIdBase`1.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryLongIdBase`1"/> class.
+            </summary>
+            <param name="context">Context.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFRepositoryLongIdBase`1.FindBy(System.Object)">
+            <summary>
+            Finds the by.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork">
+            <summary>
+            An IUnitOfWork implementation for EntityFramework.
+            </summary>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.#ctor(System.Data.Entity.DbContext)">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork"/> class.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.#ctor(System.Func{System.Data.Entity.DbContext})">
+            <summary>
+            Initializes a new instance of the
+            <see cref="T:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork"/> class.
+            </summary>
+            <param name="createNewContext">The func to the context.</param>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.Commit">
+            <summary>
+            Commit the registered entities.
+            </summary>        
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.Rollback">
+            <summary>
+            Undo changes made after the latest commit.
+            </summary>
+        </member>
+        <member name="M:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.OnRollbacked(System.EventArgs)">
+            <summary>
+            Raises the Rollbacked event.
+            </summary>
+            <param name="args">The event's arguments.</param>
+        </member>
+        <member name="E:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.Rollbacked">
+            <summary>
+            Occurrs after a rollback is performed
+            </summary>
+        </member>
+        <member name="P:Skahal.Infrastructure.Repositories.EntityFramework.EFUnitOfWork.Context">
+            <summary>
+            Gets the context.
+            </summary>
+            <value>The context.</value>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11B25364-DFD9-4E5F-ABDF-F8451376A5C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SpecFlowHelper</RootNamespace>
+    <AssemblyName>SpecFlowHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\SpecFlowHelper.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentAssertions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.0.0\lib\net45\FluentAssertions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.4.0.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HelperSharp, Version=1.0.5560.27038, Culture=neutral, PublicKeyToken=3d44152485e1a4e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\HelperSharp.0.0.4.2\lib\net35\HelperSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Skahal.Infrastructure.Framework, Version=1.0.5576.19712, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skahal.Infrastructure.Framework.0.6.5\lib\net35\Skahal.Infrastructure.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Skahal.Infrastructure.Logging.Log4net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Skahal.Infrastructure.Logging.Log4net.1.0.1\lib\net35\Skahal.Infrastructure.Logging.Log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Abstractions, Version=1.4.0.92, Culture=neutral, PublicKeyToken=d480b5b72fb413da, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.1.4.0.92\lib\net35\System.IO.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TestSharp">
+      <HintPath>..\references\TestSharp\TestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=2.47.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.2.47.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=2.47.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.2.47.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Containers\AnchorContainer.cs" />
+    <Compile Include="Containers\ContainerBase.cs" />
+    <Compile Include="Containers\InputContainer.cs" />
+    <Compile Include="Containers\ToastContainer.cs" />
+    <Compile Include="Extensions\AngularJsExtensions.cs" />
+    <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="Integrations\Browser.cs" />
+    <Compile Include="Integrations\Browsers\BrowserBase.cs" />
+    <Compile Include="Integrations\Browsers\ChromeBrowser.cs" />
+    <Compile Include="Integrations\Browsers\PhantomJSBrowser.cs" />
+    <Compile Include="Integrations\Browsers\IEBrowser.cs" />
+    <Compile Include="Integrations\UrlOpeningEventArgs.cs" />
+    <Compile Include="Integrations\Database.cs" />
+    <Compile Include="Integrations\Databases\IDatabase.cs" />
+    <Compile Include="Integrations\Databases\SqlServerDatabase.cs" />
+    <Compile Include="Integrations\DownloadFolder.cs" />
+    <Compile Include="Integrations\Browsers\FirefoxBrowser.cs" />
+    <Compile Include="Integrations\Environments\EnvironmentBase.cs" />
+    <Compile Include="Integrations\ExecutionEvents.cs" />
+    <Compile Include="Integrations\RuntimeEnvironment.cs" />
+    <Compile Include="Integrations\Environments\ContinousIntegrationEnvironment.cs" />
+    <Compile Include="Integrations\Environments\DevelopmentEnvironment.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Integrations\Browsers\IBrowser.cs" />
+    <Compile Include="Integrations\Environments\IEnvironment.cs" />
+    <Compile Include="Integrations\TeamCityLog.cs" />
+    <Compile Include="Integrations\ElementClickingEventArgs.cs" />
+    <Compile Include="Logging\LogHelper.cs" />
+    <Compile Include="Logging\Log4netLogTraceListener.cs" />
+    <Compile Include="Logging\Log4netLogStrategy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\AssertHelper.cs" />
+    <Compile Include="Steps\ConfigSteps.cs" />
+    <Compile Include="Steps\ComboboxSteps.cs" />
+    <Compile Include="Steps\ButtonSteps.cs" />
+    <Compile Include="Steps\BadgeSteps.cs" />
+    <Compile Include="Steps\CheckboxSteps.cs" />
+    <Compile Include="Steps\BrowserSteps.cs" />
+    <Compile Include="Steps\LinkSteps.cs" />
+    <Compile Include="Steps\Localization\ENLocale.cs" />
+    <Compile Include="Steps\Localization\PTLocale.cs" />
+    <Compile Include="Steps\StepHooks.cs" />
+    <Compile Include="Steps\PageSteps.cs" />
+    <Compile Include="Steps\Strategies\AngularJS\AngularJSComboboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultUploadStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IUploadStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\jQuery\jQueryComboboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\StepsStrategyBase.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultBrowserStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IBrowserStepsStrategies.cs" />
+    <Compile Include="Steps\Strategies\IStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IComboboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\StrategyFactory.cs" />
+    <Compile Include="Steps\ToastSteps.cs" />
+    <Compile Include="Steps\GridSteps.cs" />
+    <Compile Include="Steps\UrlSteps.cs" />
+    <Compile Include="Steps\InfrastructureSteps.cs" />
+    <Compile Include="Steps\DownloadSteps.cs" />
+    <Compile Include="Steps\TextboxSteps.cs" />
+    <Compile Include="Steps\JobSteps.cs" />
+    <Compile Include="Steps\StepsBase.cs" />
+    <Compile Include="Steps\StepHelper.cs" />
+    <Compile Include="Steps\UploadSteps.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

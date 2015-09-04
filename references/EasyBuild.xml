@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyBuild</name>
+    </assembly>
+    <members>
+        <member name="T:EasyBuild.Resources2JSTask">
+            <summary>
+            Task to serialize resource files with localized labels to JS files.
+            </summary>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:EasyBuild.Resources2JSTask"/> class.
+            </summary>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.CreateJSFiles(System.Globalization.CultureInfo)">
+            <summary>
+            Cria os arquivos JS utilizando a cultura e os resources especificados.
+            </summary>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.NormalizePropertyName(System.String)">
+            <summary>
+            Normaliza o nome de uma propriedade.
+            </summary>
+            <returns>O nome da propriedade normalizado.</returns>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.ForEachCulture(System.Action{System.Globalization.CultureInfo})">
+            <summary>
+            Executa a action para cada cultura informada pelo usuário da linha de comando.
+            </summary>
+            <param name="action">A ação a ser executada.</param>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.ForEachResource(System.Action{System.Type,System.Resources.ResourceManager})">
+            <summary>
+            Executa a action para cada resource informado pelo usuário da linha de comando.
+            </summary>
+            <param name="action">A ação a ser executada.</param>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.GetSerializableProperties(System.Type)">
+            <summary>
+            Obtém as propriedades do resource que serão serializadas.
+            </summary>
+            <returns>As propriedades que podem ser serializadas.</returns>
+        </member>
+        <member name="M:EasyBuild.Resources2JSTask.LoadResourceXmlFile(System.String,System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            Carrega o arquivo xml do resource informado.
+            </summary>
+            <param name="resourceFilesFolder">A pasta dos arquivos .resx.</param>
+            <param name="resourceType">O tipo do resource.</param>
+            <param name="culture">A cultura.</param>
+            <returns>O documento xml.</returns>
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.AssemblyFileName">
+            <summary>
+            Gets or sets the filename of the assembly with the resources files.
+            </summary>
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.SerializationFolder">
+            <summary>
+            Gets or sets the serialization folder where the generated JS files will be writen.
+            </summary>
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.CultureCodes">
+            <summary>
+            Gets or sets the list of culture codes to be considered.
+            </summary>
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.DefaultCultureCode">
+            <summary>
+            Gets or sets the default culture code.
+            </summary>        
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.IgnoreResourceNames">
+            <summary>
+            Gets or sets the list of resource files that should be ignored.
+            </summary>
+        </member>
+        <member name="P:EasyBuild.Resources2JSTask.TextNotFoundMarkup">
+            <summary>
+            Gets or sets the text not found markup.
+            </summary>
+            <value>
+            The text not found markup.
+            </value>
+        </member>
+        <member name="T:EasyBuild.StartWebProjectTask">
+            <summary>
+            Task to start a solution web project using WebDev server.
+            </summary>
+        </member>
+        <member name="M:EasyBuild.StartWebProjectTask.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:EasyBuild.StartWebProjectTask.ProjectFolderName">
+            <summary>
+            Gets or sets the name of web project folder.
+            </summary>
+        </member>
+        <member name="P:EasyBuild.StartWebProjectTask.Port">
+            <summary>
+            Gets or sets the port used to host the web project on WebDev server.
+            </summary>
+        </member>
+    </members>
+</doc>
