@@ -10,12 +10,43 @@ namespace SpecFlowHelper.SampleWebApp.Controllers
             return View();
         }
 
+        public ActionResult BadgeSteps()
+        {
+            return View();
+        }
+
         public ActionResult BrowserSteps()
         {
             return View();
         }
 
+        public ActionResult ButtonSteps()
+        {
+            return View();
+        }
+
+        public ActionResult CheckboxSteps()
+        {
+            return View();
+        }
+
+        public ActionResult RadioButtonSteps()
+        {
+            return View();
+        }
+
+
         public ActionResult ComboboxSteps()
+        {
+            return View();
+        }
+
+        public ActionResult DownloadSteps()
+        {
+            return View();
+        }
+
+        public ActionResult InfrastructureSteps()
         {
             return View();
         }

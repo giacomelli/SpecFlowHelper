@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using TestSharp;
 
 namespace SpecFlowHelper.Integrations.Browsers
 {
@@ -32,6 +33,12 @@ namespace SpecFlowHelper.Integrations.Browsers
             var profile = new FirefoxProfile();
             profile.SetProxyPreferences(proxy);
             return new FirefoxDriver(profile);
+        }
+
+        public override void Kill()
+        {
+            base.Kill();
+            ProcessHelper.KillAll("FirefoxDriver");
         }
         #endregion
     }

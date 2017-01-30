@@ -1,5 +1,6 @@
 ﻿using HelperSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
@@ -7,37 +8,26 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public class ToastSteps : StepsBase
     {
-        [Then(@"deve exibir o toast '(.*)'")]
-        public void EntaoDeveExibirOToast(string message)
+        #region Properties
+        private IToastStepsStrategy Strategy
         {
-            StepHelper.Attempt(() =>
+            get
             {
-                var toastMessage = this.Toast().Message;
-                Assert.AreEqual(message, toastMessage, "A mensagem esperada no toast era: {0}, mas foi {1}".With(message, toastMessage));
+                return StrategyFactory.Create<IToastStepsStrategy, ToastSteps>(this);
+            }
+        }
+        #endregion
 
-                return true;
-            });
+        [Then(@"deve exibir o toast '(.*)'")]
+        public void ThenShouldShowTheToast(string message)
+        {
+            Strategy.ThenShouldShowTheToast(message);
         }
 
-        [Then(@"então fecho o toast")]
-        public void EntaoFechoOToast()
+        [Then(@"fecho o toast")]
+        public void ThenCloseTheToast()
         {
-            StepHelper.Attempt(() =>
-            {
-                var toast = this.Toast();
-
-                if (StepHelper.IsElementPresent(toast.By))
-                {
-                    toast.Click(1);
-
-                    if (StepHelper.IsElementPresent(toast.By))
-                    {
-                        toast.Click(1);
-                    }
-                }
-
-                return true;
-            });
+            Strategy.ThenCloseTheToast();
         }
     }
 }

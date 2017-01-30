@@ -69,8 +69,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TestSharp">
@@ -120,6 +120,7 @@
     <Compile Include="Logging\Log4netLogStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AssertHelper.cs" />
+    <Compile Include="Steps\RadioButtonSteps.cs" />
     <Compile Include="Steps\ConfigSteps.cs" />
     <Compile Include="Steps\ComboboxSteps.cs" />
     <Compile Include="Steps\ButtonSteps.cs" />
@@ -132,12 +133,30 @@
     <Compile Include="Steps\StepHooks.cs" />
     <Compile Include="Steps\PageSteps.cs" />
     <Compile Include="Steps\Strategies\AngularJS\AngularJSComboboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\AngularJS\AngularJSDatatablesGridStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultToastStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultRadioButtonStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultInfrastructureStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IToastStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IRadioButtonStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IInfrastructureStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IGridStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultDownloadStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IDownloadStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultConfigStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IConfigStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultCheckboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\ICheckboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultButtonStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IButtonStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultBadgeStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\IBadgeStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\Default\DefaultUploadStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IUploadStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\jQuery\jQueryComboboxStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\StepsStrategyBase.cs" />
     <Compile Include="Steps\Strategies\Default\DefaultBrowserStepsStrategy.cs" />
-    <Compile Include="Steps\Strategies\IBrowserStepsStrategies.cs" />
+    <Compile Include="Steps\Strategies\IBrowserStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IComboboxStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\StrategyFactory.cs" />

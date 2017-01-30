@@ -2,6 +2,7 @@
 using HelperSharp;
 using SpecFlowHelper.Integrations.Browsers;
 using SpecFlowHelper.Integrations.Environments;
+using TestSharp;
 
 namespace SpecFlowHelper.Configuration
 {
@@ -46,10 +47,12 @@ namespace SpecFlowHelper.Configuration
             if (WebApiEnabled)
             {
                 ValidateString("WebApiProjectFolderName", WebApiProjectFolderName);
+                ValidateProjectFolder("WebApiProjectFolderName", WebApiProjectFolderName);
                 ValidateInt("WebApiPort", WebApiPort);
             }
 
             ValidateString("WebAppProjectFolderName", WebAppProjectFolderName);
+            ValidateProjectFolder("WebAppProjectFolderName", WebAppProjectFolderName);
             ValidateInt("WebAppPort", WebAppPort);
             ValidateString("WebAppBaseUrl", WebAppBaseUrl);
 
@@ -58,6 +61,14 @@ namespace SpecFlowHelper.Configuration
                 ValidateString("JobsProjectFolderName", JobsProjectFolderName);
                 ValidateString("JobsProcessName", JobsProcessName);
                 ValidateString("JobsLogFileName", JobsLogFileName);
+            }
+        }
+
+        private static void ValidateProjectFolder(string propertyName, string propertyValue)
+        {
+            if (String.IsNullOrEmpty(VSProjectHelper.GetProjectFolderPath(propertyValue)))
+            {
+                throw new InvalidOperationException("AppConfig.{0} is wroing: cannot find a project with folder '{1}'.".With(propertyName, propertyValue));
             }
         }
 

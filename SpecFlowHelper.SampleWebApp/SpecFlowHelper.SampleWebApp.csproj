@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,7 +83,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="content\toastr.css" />
+    <Content Include="content\toastr.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="content\toastr.scss" />
+    <Content Include="content\toastr.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -91,6 +96,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +119,13 @@
     <Content Include="Views\Home\IFrameFast.cshtml" />
     <Content Include="Views\Home\IFrameSlow1.cshtml" />
     <Content Include="Views\Home\IFrameSlow2.cshtml" />
+    <Content Include="Views\Home\BadgeSteps.cshtml" />
+    <Content Include="Views\Home\ToastSteps.cshtml" />
+    <Content Include="Views\Home\ButtonSteps.cshtml" />
+    <Content Include="Views\Home\CheckboxSteps.cshtml" />
+    <Content Include="Views\Home\DownloadSteps.cshtml" />
+    <Content Include="Views\Home\InfrastructureSteps.cshtml" />
+    <Content Include="Views\Home\RadioButtonSteps.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

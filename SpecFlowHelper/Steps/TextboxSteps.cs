@@ -11,14 +11,14 @@ namespace SpecFlowHelper.Steps
         [When(@"digito '(.*)' no campo '(.*)'")]
         public void QuandoDigitoNoCampo(string value, string field)
         {
-            var by = By.XPath("//input[@id='{0}']|//textarea[@id='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
+            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
             StepHelper.EnterValue(by, value);
         }
 
         [Then(@"o campo '(.*)' deve ter o valor '(.*)'")]
         public void EntaoOCampoDeveTerOValor(string field, string value)
         {
-            var by = By.XPath("//input[@id='{0}']|//textarea[@id='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
+            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
 
             StepHelper.Attempt(() =>
             {

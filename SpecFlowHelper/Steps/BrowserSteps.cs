@@ -10,6 +10,7 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public class BrowserSteps : StepsBase
     {
+        #region Properties
         private IBrowserStepsStrategy Strategy
         {
             get
@@ -17,11 +18,14 @@ namespace SpecFlowHelper.Steps
                 return StrategyFactory.Create<IBrowserStepsStrategy, BrowserSteps>(this);
             }
         }
+        #endregion
 
+        #region Methods
         [When(Locale.WhenConfirmTheAlert)]
         public void WhenConfirmTheAlert()
         {
             Strategy.WhenConfirmTheAlert();
         }
+        #endregion
     }
 }

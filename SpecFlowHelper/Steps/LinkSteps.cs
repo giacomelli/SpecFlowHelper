@@ -13,5 +13,11 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Click(By.LinkText(text));
         }
+
+        [When(@"clico no link que contém o texto '(.*)'")]
+        public void QuandoClicoNoLinkQueContemOTexto(string text)
+        {
+            StepHelper.Click(By.XPath("//a[contains(., '{0}')]".With(text)));
+        }
     }
 }

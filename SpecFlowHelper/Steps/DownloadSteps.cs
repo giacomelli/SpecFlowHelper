@@ -1,7 +1,5 @@
-﻿using System.IO;
-using HelperSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpecFlowHelper.Integrations;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
@@ -9,36 +7,46 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public class DownloadSteps : StepsBase
     {
-        [When(@"limpo a pasta de downloads do usuário")]
-        public void QuandoLimpoAPastaDeDownloadsDoUsuario()
+        #region Properties
+        private IDownloadStepsStrategy Strategy
         {
-            DownloadFolder.DeleteFiles();
-        }
-
-        [Then(@"deve existir um arquivo com o nome '(.*)' na pasta de downloads")]
-        public void EntaoDeveExistirUmArquivoComONomeNaPastaDeDownloads(string filename)
-        {
-            StepHelper.Attempt(() =>
+            get
             {
-                StepHelper.Wait("arquivo aparecer na pasta de downloads");
-                var files = DownloadFolder.GetFiles(filename);
-                Assert.AreEqual(1, files.Length);
-                Assert.AreEqual(filename, Path.GetFileName(files[0]), filename);
-
-                return true;
-            });
+                return StrategyFactory.Create<IDownloadStepsStrategy, DownloadSteps>(this);
+            }
         }
+        #endregion
 
-        [Then(@"deve existir (.*) arquivo com a extensão '(.*)' na pasta de downloads")]
-        public void EntaoDeveExistirUmArquivoComONomeNaPastaDeDownloads(int fileCount, string fileExtension)
+        #region Methods
+        /// <summary>
+        /// When clear the downloads folder.
+        /// </summary>
+        [When(Locale.WhenClearTheDownloadsFolder)]
+        public void WhenClearTheDownloadsFolder()
         {
-            StepHelper.Attempt(() =>
-            {
-                var files = DownloadFolder.GetFiles("*.{0}".With(fileExtension));
-                Assert.AreEqual(fileCount, files.Length, fileExtension);
-
-                return true;
-            });
+            Strategy.WhenClearTheDownloadsFolder();
         }
+
+        /// <summary>
+        /// Then should exists a file with the name in the downloads folder.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        [Then(Locale.ThenShouldExistsAFileWithTheNameInTheDownloadsFolder)]
+        public void ThenShouldExistsAFileWithTheNameInTheDownloadsFolder(string filename)
+        {
+            Strategy.ThenShouldExistsAFileWithTheNameInTheDownloadsFolder(filename);
+        }
+
+        /// <summary>
+        /// Then should exists files with the extension in the downloads folder.
+        /// </summary>
+        /// <param name="fileCount">The file count.</param>
+        /// <param name="fileExtension">The file extension.</param>
+        [Then(Locale.ThenShouldExistsFilesWithTheExtensionInTheDownloadsFolder)]
+        public void ThenShouldExistsFilesWithTheExtensionInTheDownloadsFolder(int fileCount, string fileExtension)
+        {
+            Strategy.ThenShouldExistsFilesWithTheExtensionInTheDownloadsFolder(fileCount, fileExtension);
+        }
+        #endregion
     }
 }

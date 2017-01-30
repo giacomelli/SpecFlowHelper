@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using TestSharp;
 
 namespace SpecFlowHelper.Integrations.Browsers
 {
@@ -36,8 +37,14 @@ namespace SpecFlowHelper.Integrations.Browsers
             {
                 options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
             }
-
+            
             return new ChromeDriver(driverFolder, options);
+        }
+
+        public override void Kill()
+        {
+            base.Kill();
+            ProcessHelper.KillAll("chromedriver");
         }
         #endregion
     }

@@ -22,9 +22,23 @@ namespace SpecFlowHelper
         [When(@"abro a url '(.*)'")]
         public void EntaoAbroAUrl(string relativeUrl)
         {
-            var urlOpeningEventArgs = new UrlOpeningEventArgs(StepHelper.BaseURL, relativeUrl);
-            var fullUrl = AppConfig.UrlFormat.With(urlOpeningEventArgs.BaseUrl, urlOpeningEventArgs.RelativeUrl);
+            string baseUrl;
+            string partialUrl;
 
+            if (relativeUrl.StartsWith("http", System.StringComparison.OrdinalIgnoreCase))
+            {
+                baseUrl = relativeUrl;
+                partialUrl = "";
+            }
+            else
+            {
+                baseUrl = StepHelper.BaseURL;
+                partialUrl = relativeUrl;
+            }
+
+            var urlOpeningEventArgs = new UrlOpeningEventArgs(baseUrl, partialUrl);
+            ExecutionEvents.RaiseUrlOpening(urlOpeningEventArgs);
+            var fullUrl = AppConfig.UrlFormat.With(urlOpeningEventArgs.BaseUrl, urlOpeningEventArgs.RelativeUrl);
             Driver.Navigate().GoToUrl(fullUrl);
         }
 

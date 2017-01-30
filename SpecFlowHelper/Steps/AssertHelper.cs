@@ -170,6 +170,24 @@ namespace SpecFlowHelper.Steps
             });
         }
 
+        public static void AssertAnyTextsAreEqual(string expectedText, By by)
+        {
+            StepHelper.Attempt(() =>
+            {
+                var elements = by.FindElements(Driver);
+
+                foreach (var e in elements)
+                {
+                    if (expectedText.Equals(e.Text))
+                    {
+                        return true;
+                    }
+                }
+
+                throw new InvalidOperationException("Expected text is not equal to any text: {0}".With(expectedText));
+            });
+        }
+
         /// <summary>
         /// Verifica se o atributo "value" do elemento retornado por by NÃO é vazio.
         /// </summary>
@@ -222,7 +240,7 @@ namespace SpecFlowHelper.Steps
 
             foreach (var element in Driver.FindElements(by))
             {
-                Assert.IsFalse(element.Enabled, by + " should be disabled.");
+                 Assert.IsFalse(element.Enabled, by + " should be disabled.");
             }
         }
 

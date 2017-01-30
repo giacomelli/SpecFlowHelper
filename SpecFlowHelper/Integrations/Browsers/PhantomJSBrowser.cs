@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
+using TestSharp;
 
 namespace SpecFlowHelper.Integrations.Browsers
 {
@@ -34,6 +35,12 @@ namespace SpecFlowHelper.Integrations.Browsers
             options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
 
             return new PhantomJSDriver(driverFolder, options);
+        }
+
+        public override void Kill()
+        {
+            base.Kill();
+            ProcessHelper.KillAll("phantomjs");
         }
         #endregion
     }

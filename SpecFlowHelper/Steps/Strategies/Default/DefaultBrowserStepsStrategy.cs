@@ -8,7 +8,7 @@
         /// <summary>
         /// Whens the confirm the alert.
         /// </summary>
-        public void WhenConfirmTheAlert()
+        public virtual void WhenConfirmTheAlert()
         {
             StepHelper.Driver.SwitchTo().Alert().Accept();
         }

@@ -41,8 +41,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.1.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TestSharp, Version=0.0.6.0, Culture=neutral, PublicKeyToken=76c905e92dbc6707, processorArchitecture=MSIL">
@@ -76,8 +76,43 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Features\RadioButton.feature.cs">
+      <DependentUpon>RadioButton.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Features\Combobox.feature.cs">
       <DependentUpon>Combobox.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Badge.feature.cs">
+      <DependentUpon>Badge.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Button.feature.cs">
+      <DependentUpon>Button.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Checkbox.feature.cs">
+      <DependentUpon>Checkbox.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Config.feature.cs">
+      <DependentUpon>Config.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Infrastructure.feature.cs">
+      <DependentUpon>Infrastructure.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Download.feature.cs">
+      <DependentUpon>Download.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -95,7 +130,7 @@
     <Compile Include="Integrations\Environments\SampleDevelopmentEnvironment.cs" />
     <Compile Include="Integrations\SpecFlowHeperConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\IFrameSteps.cs" />
+    <Compile Include="Steps\FrameSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpecFlowHelper\SpecFlowHelper.csproj">
@@ -114,9 +149,37 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Browser.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\RadioButton.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RadioButton.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Combobox.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Combobox.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Badge.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Badge.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Button.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Button.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Checkbox.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Checkbox.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Config.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Config.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Infrastructure.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Infrastructure.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Download.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Download.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\IFrame.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

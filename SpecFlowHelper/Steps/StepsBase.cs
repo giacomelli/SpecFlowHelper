@@ -8,6 +8,7 @@ namespace SpecFlowHelper.Steps
     /// </summary>
     public abstract class StepsBase : TechTalk.SpecFlow.Steps
     {
+        #region Properties
         /// <summary>
         /// Gets the web driver.
         /// </summary>
@@ -18,5 +19,6 @@ namespace SpecFlowHelper.Steps
                 return Browser.Current.Driver;
             }
         }
+        #endregion
     }
 }

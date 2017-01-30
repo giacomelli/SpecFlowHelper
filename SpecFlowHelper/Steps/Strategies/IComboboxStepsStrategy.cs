@@ -13,7 +13,7 @@
         void WhenTypeInTheComboboxWithSearch(string value, string field);
 
         /// <summary>
-        /// When the type enter in the combobox with search.
+        /// When type enter in the combobox with search.
         /// </summary>
         /// <param name="field">The field.</param>
         void WhenTypeEnterInTheComboboxWithSearch(string field);
@@ -26,7 +26,7 @@
         void ThenTheComboboxWithSearchShouldHaveTextsSelected(string field, string texts);
 
         /// <summary>
-        /// When the remove the item from combobox with search.
+        /// When remove the item from combobox with search.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="field">The field.</param>
@@ -40,7 +40,7 @@
         void ThenTheComboboxShouldHaveTextSelected(string field, string text);
 
         /// <summary>
-        /// When the select in the combobox.
+        /// When select in the combobox.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="field">The field.</param>

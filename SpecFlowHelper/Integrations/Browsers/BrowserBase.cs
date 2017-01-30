@@ -68,7 +68,7 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// <summary>
         /// Kills this instance.
         /// </summary>
-        public void Kill()
+        public virtual void Kill()
         {
             ProcessHelper.KillAll(m_processName);
         }

@@ -1,21 +1,37 @@
-﻿using HelperSharp;
-using OpenQA.Selenium;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
 {
+    /// <summary>
+    /// Buttons 
+    /// steps.
+    /// </summary>
     [Binding]
-    public class ButtonSteps : StepsBase
+    public sealed class ButtonSteps : StepsBase
     {
-        [When(@"clico no botão '(.*)'")]
-        [Then(@"clico no botão '(.*)'")]
-        public virtual void QuandoClicoNoBotao(string label)
+        #region Properties
+        private IButtonStepsStrategy Strategy
         {
-            var xpath = "//a[text()='{0}']|//input[@value='{0}' and @type='submit']|//button[text()='{0}']|//button[contains(text(),'{0}')]|//button[contains(.,'{0}')]|//span[contains(.,'{0}')]|//a[contains(., '{0}') and contains(@class, 'btn')]".With(label);
-            var by = By.XPath(xpath);
-
-            StepHelper.MoveToElement(by);
-            StepHelper.Click(by);
+            get
+            {
+                return StrategyFactory.Create<IButtonStepsStrategy, ButtonSteps>(this);
+            }
         }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// When click in the button.
+        /// </summary>
+        /// <param name="label">The button label.</param>
+        [When(Locale.WhenClickInTheButton)]
+        [Then(Locale.WhenClickInTheButton)]
+        public void WhenClickInTheButton(string label)
+        {
+            Strategy.WhenClickInTheButton(label);
+        }
+        #endregion
     }
 }

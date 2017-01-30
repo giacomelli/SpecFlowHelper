@@ -1,36 +1,40 @@
-﻿using System;
-using SpecFlowHelper.Configuration;
-using SpecFlowHelper.Integrations;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
-using TestSharp;
 
 namespace SpecFlowHelper.Steps
 {
     [Binding]
     public class InfrastructureSteps : StepsBase
     {
-        [When(@"limpo o cache da web api")]
-        public void QuandoLimpoOCacheDaWebApi()
+        #region Properties
+        private IInfrastructureStepsStrategy Strategy
         {
-            ConfigHelper.WriteAppSetting(AppConfig.WebApiProjectFolderName, "SpecFlowHelperLastRun", DateTime.Now.ToString("dd/MM/yyy HH:mm:ss:fff"));
-            StepHelper.OpenBaseUrl();
-        }
-
-        [When(@"reinicializo banco e servidores")]
-        public void QuandoReinicializoBancoEServidores()
-        {
-            Database.Initialize(true);
-            QuandoLimpoOCacheDaWebApi();
-        }
-
-        [When(@"reinicializo banco e servidores uma única vez para toda a feature")]
-        public void QuandoReinicializoBancoEServidoresUmaUnicaVezParaTodaAFeature()
-        {
-            StepHooks.RunOneTimeForFeature("DatabaseReinitialized", () =>
+            get
             {
-                Database.Initialize(true);
-                QuandoLimpoOCacheDaWebApi();
-            });
+                return StrategyFactory.Create<IInfrastructureStepsStrategy, InfrastructureSteps>(this);
+            }
         }
+        #endregion
+
+        #region Methods
+        [When(Locale.WhenClearWebApiCache)]
+        public void WhenClearWebApiCache()
+        {
+            Strategy.WhenClearWebApiCache();
+        }
+
+        [When(Locale.WhenReinitializeDBAndServers)]
+        public void WhenReinitializeDBAndServers()
+        {
+            Strategy.WhenReinitializeDBAndServers();
+        }
+
+        [When(Locale.WhenReinitializeDBAndServerOneTimeToFeature)]
+        public void WhenReinitializeDBAndServerOneTimeToFeature()
+        {
+            Strategy.WhenReinitializeDBAndServerOneTimeToFeature();
+        }
+        #endregion
     }
 }

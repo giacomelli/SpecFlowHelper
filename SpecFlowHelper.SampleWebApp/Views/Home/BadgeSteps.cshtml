@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <title>BadgeSteps</title>
+    <script>
+        var badgeNumber = 0;
+
+        function showBadge() {
+            $('#badge_' + (++badgeNumber)).show();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        BadgeSteps
+    </div>
+    <br />
+    <input type="button" onclick="showBadge()" value="Show badge"/>
+    <div class="badge" id="badge_1" style="display:none">Badge 01</div>
+    <div class="badge" id="badge_2" style="display:none">Badge 02</div>
+    <div class="badge" id="badge_3" style="display:none">Badge 03</div>
+</body>
+</html>

@@ -19,7 +19,7 @@
         void WhenUploadInTheFile(string field, string relativeFileName);
 
         /// <summary>
-        /// When the upload the file in downloads folder.
+        /// When upload the file in downloads folder.
         /// </summary>
         /// <param name="relativeFileName">The relative filename.</param>
         void WhenUploadTheFileInDownloadsFolder(string relativeFileName);

@@ -1,77 +1,85 @@
-﻿using System;
-using HelperSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
 {
+    /// <summary>
+    /// Grid steps.
+    /// </summary>
     [Binding]
     public class GridSteps : StepsBase
     {
-        #region Finders
-        public static Func<GridSteps, By> RowFinder = (s) => By.CssSelector(".ui-grid-row");
-        public static Func<GridSteps, int, By> RowByNumberFinder = (s, rowNumber) => By.CssSelector(".ui-grid-row:nth-child({0})".With(rowNumber));
-        public static Func<GridSteps, string, By> RowByTextFinder = (s, text) => By.XPath("//*[contains(@class,'ui-grid-cell-contents') and contains(node(),'{0}')]".With(text));
-        public static Func<GridSteps, string, By> RowRemoveButtonByTextFinder = (s, text) => By.XPath("//*[contains(@class,'ui-grid-cell-contents') and contains(node(),'{0}')]".With(text));
-        public static Func<GridSteps, By> NextPageFinder = (s) => s.ByNgClick("paginationApi.nextPage()");
-        public static Func<GridSteps, By> LastPageFinder = (s) => s.ByNgClick("paginationApi.seek(paginationApi.getTotalPages())");
+        #region Properties
+        private IGridStepsStrategy Strategy
+        {
+            get
+            {
+                return StrategyFactory.Create<IGridStepsStrategy, GridSteps>(this);
+            }
+        }
         #endregion
 
-        #region Steps
-        [Then(@"a grid deve ter '(.*)' linhas")]
-        public void EntaoAGridDeveTerLinhas(int rows)
+        #region Methods
+        [Then(Locale.ThenTheGridShouldHaveRows)]
+        public void ThenTheGridShouldHaveRows(int rows)
         {
-            StepHelper.Attempt(() =>
-            {
-                var elements = StepHelper.Driver.FindElements(RowFinder(this));
-
-                Assert.AreEqual(rows, elements.Count, "A grid deveria ter {0} linhas".With(rows));
-
-                return true;
-            });
+            Strategy.ThenTheGridShouldHaveRows(rows);
         }
 
-        [When(@"clico na primeira linha da grid")]
-        public void QuandoClicoNaPrimeiraLinhaDaGrid()
+        [When(Locale.WhenClickInTheFirstGridRow)]
+        public void WhenClickInTheFirstGridRow()
         {
-            StepHelper.Click(RowFinder(this));
+            Strategy.WhenClickInTheFirstGridRow();
         }
 
-        [When(@"clico na linha '(.*)' da grid")]
-        public void QuandoClicoNaLinhaDaGrid(int row)
+        [When(Locale.WhenClickInTheGridRow)]
+        public void WhenClickInTheGridRow(int row)
         {
-            StepHelper.Click(RowByNumberFinder(this, row));
+            Strategy.WhenClickInTheGridRow(row);
         }
 
-        [When(@"pagino a grid para a próxima página")]
-        public void QuandoPaginoAGridParaAProximaPagina()
+        [When(Locale.WhenPaginateToTheNextGridPage)]
+        public void WhenPaginateToTheNextGridPage()
         {
-            StepHelper.Click(NextPageFinder(this));
+            Strategy.WhenPaginateToTheNextGridPage();
         }
 
-        [When(@"pagino a grid para a última página")]
-        public void QuandoPaginoAGridParaAUltimaPagina()
+        [When(Locale.WhenPaginateToThePreviousGridPage)]
+        public void WhenPaginateToThePreviousGridPage()
         {
-            StepHelper.Click(LastPageFinder(this));
+            Strategy.WhenPaginateToThePreviousGridPage();
         }
 
-        [When(@"clico na linha da grid com o texto '(.*)'")]
-        public void QuandoClicoNaLinhaDaGridComOTexto(string text)
+        [When(Locale.WhenPaginateToLastGridPage)]
+        public void WhenPaginateToLastGridPage()
         {
-            var by = RowByTextFinder(this, text);
-
-            StepHelper.Click(by);
+            Strategy.WhenPaginateToLastGridPage();
         }
 
-        [When(@"clico no botão excluir na linha da grid com o texto '(.*)'")]
-        public void QuandoClicoNoBotaoExcluirNaLinhaDaGridComOTexto(string text)
+        [When(Locale.WhenPaginateToFirstGridPage)]
+        public void WhenPaginateToFirstGridPage()
         {
-            var by = RowRemoveButtonByTextFinder(this, text);
-
-            StepHelper.Click(by);
+            Strategy.WhenPaginateToFirstGridPage();
         }
 
+        [When(Locale.WhenClickInTheGridRowWithTheText)]
+        public void WhenClickInTheGridRowWithTheText(string text)
+        {
+            Strategy.WhenClickInTheGridRowWithTheText(text);
+        }
+
+        [When(Locale.WhenClickInTheRemoveButtonInTheGridRowWithTheText)]
+        public void WhenClickInTheRemoveButtonInTheGridRowWithTheText(string text)
+        {
+            Strategy.WhenClickInTheRemoveButtonInTheGridRowWithTheText(text);
+        }
+
+        [When(Locale.WhenSortTheGridByColumn)]
+        public void WhenSortTheGridByColumn(string columnTitle)
+        {
+            Strategy.WhenSortTheGridByColumn(columnTitle);
+        }
         #endregion
     }
 }

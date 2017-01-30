@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/content/toastr.css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <title>BadgeSteps</title>
+    <script>
+        var badgeNumber = 0;
+
+        function showBadge() {
+            toastr.info('badge ' + (++badgeNumber));
+        }
+    </script>
+</head>
+<body>
+    <div>
+        BadgeSteps
+    </div>
+    <br />
+    <input type="button" onclick="showBadge()" value="Show badge"/>
+</body>
+</html>

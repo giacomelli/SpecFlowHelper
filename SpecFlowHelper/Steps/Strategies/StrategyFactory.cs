@@ -15,9 +15,18 @@ namespace SpecFlowHelper.Steps.Strategies
         /// </summary>
         static StrategyFactory()
         {
+            Register<IBadgeStepsStrategy, BadgeSteps>(new DefaultBadgeStepsStrategy());
+            Register<IButtonStepsStrategy, ButtonSteps>(new DefaultButtonStepsStrategy());
             Register<IBrowserStepsStrategy, BrowserSteps>(new DefaultBrowserStepsStrategy());
-            Register<IUploadStepsStrategy, UploadSteps>(new DefaultUploadStepsStrategy());
+            Register<ICheckboxStepsStrategy, CheckboxSteps>(new DefaultCheckboxStepsStrategy());
+            Register<IRadioButtonStepsStrategy, RadioButtonSteps>(new DefaultRadioButtonStepsStrategy());
             Register<IComboboxStepsStrategy, ComboboxSteps>(new AngularJSComboboxStepsStrategy());
+            Register<IConfigStepsStrategy, ConfigSteps>(new DefaultConfigStepsStrategy());
+            Register<IDownloadStepsStrategy, DownloadSteps>(new DefaultDownloadStepsStrategy());
+            Register<IGridStepsStrategy, GridSteps>(new AngularJSDatatablesGridStepsStrategy());
+            Register<IInfrastructureStepsStrategy, InfrastructureSteps>(new DefaultInfrastructureStepsStrategy());
+            Register<IUploadStepsStrategy, UploadSteps>(new DefaultUploadStepsStrategy());
+            Register<IToastStepsStrategy, ToastSteps>(new DefaultToastStepsStrategy());
         }
         #endregion
 

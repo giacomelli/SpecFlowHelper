@@ -1,17 +1,31 @@
-﻿using OpenQA.Selenium;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
 {
+    /// <summary>
+    /// Badge steps.
+    /// </summary>
     [Binding]
     public class BadgeSteps : StepsBase
     {
-        [Then(@"deve exibir o badge com o texto '(.*)'")]
-        public void EntaoDeveExibirOBadgeComOTexto(string text)
+        #region Properties
+        private IBadgeStepsStrategy Strategy
         {
-            var by = By.CssSelector(".badge");
-
-            AssertHelper.AssertTextAreEqual(text, by);
+            get
+            {
+                return StrategyFactory.Create<IBadgeStepsStrategy, BadgeSteps>(this);
+            }
         }
+        #endregion
+
+        #region Methods
+        [Then(Locale.ThenShouldShowTheBadgeWithTheText)]
+        public void ThenShouldShowTheBadgeWithTheText(string text)
+        {
+            Strategy.ThenShouldShowTheBadgeWithTheText(text);
+        }
+        #endregion
     }
 }

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <title>ButtonSteps</title>
+    <script>
+        function clickButton(buttonNumber) {
+            $('#button_' + buttonNumber).show();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        ButtonSteps
+    </div>
+    <br />
+    <input type="button" onclick="clickButton(1)" value="click button 1"/>
+    <input type="button" onclick="clickButton(2)" value="click button 2"/>
+    <input type="button" onclick="clickButton(3)" value="click button 3"/>
+    <div class="button" id="button_1" style="display:none">Button 01 clicked</div>
+    <div class="button" id="button_2" style="display:none">Button 02 clicked</div>
+    <div class="button" id="button_3" style="display:none">Button 03 clicked</div>
+</body>
+</html>

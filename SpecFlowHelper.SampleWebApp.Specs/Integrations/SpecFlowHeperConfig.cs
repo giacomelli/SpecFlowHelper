@@ -18,7 +18,7 @@ namespace SpecFlowHelper.SampleWebApp.Specs.Integrations
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            AppConfig.Environment = new SampleDevelopmentEnvironment();
+            AppConfig.Environment = new SampleContinuousIntegrationEnvironment();
             AppConfig.BrowserKind = BrowserKind.Chrome;
             AppConfig.BrowserDriverFolder = VSProjectHelper.GetProjectFolderPath("SpecFlowHelper.SampleWebApp.Specs") + @"\Drivers";
             AppConfig.Configuration = "Debug";

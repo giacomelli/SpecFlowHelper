@@ -17,17 +17,18 @@ namespace SpecFlowHelper.Steps
             var exeFileName = GetExeFileName();
             var logFileName = GetLogFileName();
 
+            StepHelper.Log("Executable filename: {0}", exeFileName);
+            StepHelper.Log("Log filename: {0}", logFileName);
+
             var processName = AppConfig.JobsProcessName;
 
-            StepHelper.Log("Kiling {0} process", processName);
-            ProcessHelper.KillAll(processName);
-
-            StepHelper.Log("Waiting {0} exit", processName);
-            ProcessHelper.WaitForExit(processName);
+            QuandoEncerroOJob(name);
 
             StepHelper.Sleep(1000, "aguardando job liberar arquivo de log");
             StepHelper.Log("Deleting log files");
             FileHelper.DeleteFiles(logFileName);
+
+            StepHelper.Wait("Aguardando job....");
 
             StepHelper.Log("Running job");
             ProcessHelper.Run(exeFileName, "-job:{0}".With(name), false);
@@ -62,7 +63,11 @@ namespace SpecFlowHelper.Steps
         [When(@"encerro o job '(.*)'")]
         public void QuandoEncerroOJob(string name)
         {
-            ProcessHelper.KillAll(AppConfig.JobsProcessName);
+            var processName = AppConfig.JobsProcessName;
+
+            StepHelper.Log("Kiling {0} process for job '{1}'", processName, name);
+            ProcessHelper.KillAll(processName);
+            ProcessHelper.WaitForExit(processName);
         }
 
 
@@ -76,6 +81,8 @@ namespace SpecFlowHelper.Steps
         private static string GetExeFileName()
         {
             var exeFileName = Path.Combine(GetConfigPath(), "{0}.exe".With(AppConfig.JobsProcessName));
+
+
             return exeFileName;
         }
 

@@ -72,8 +72,8 @@ namespace SpecFlowHelper.Steps
             // Writes to browser window.
             if (Browser.Current.Kind != BrowserKind.IE)
             {
-                StepHelper.Driver.Navigate().GoToUrl("data:text/html, <html contenteditable>");
-                StepHelper.EnterValue(By.TagName("body"), "Loading scenario \"{0}\"...".With(title));
+                StepHelper.Driver.Navigate().GoToUrl("data:text/html, <html><title>SpecFlowHelper</title><body contenteditable style='font-size:48pt;text-align:center;'>");
+                StepHelper.EnterValue(By.TagName("body"), title);
             }
         }
 

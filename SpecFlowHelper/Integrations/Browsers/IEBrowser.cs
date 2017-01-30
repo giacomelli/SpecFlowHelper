@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
+using TestSharp;
 
 namespace SpecFlowHelper.Integrations.Browsers
 {
@@ -34,6 +35,12 @@ namespace SpecFlowHelper.Integrations.Browsers
             options.Proxy = proxy;
             options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
             return new InternetExplorerDriver(driverFolder, options);
+        }
+
+        public override void Kill()
+        {
+            base.Kill();
+            ProcessHelper.KillAll("IEDriverServer");
         }
         #endregion
     }

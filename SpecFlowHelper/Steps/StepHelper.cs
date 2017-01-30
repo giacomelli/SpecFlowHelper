@@ -58,10 +58,7 @@ namespace SpecFlowHelper.Steps
         #region Initialize and quit
         public static void StartWebServers()
         {
-            Log("Killing web server processes...");
-            ProcessHelper.KillAll(WebHostHelper.WebHostProcessName);
-            ProcessHelper.KillAll("iisexpress");
-            WebHostHelper.KillAll();
+            StopWebServers();
 
             if (AppConfig.WebApiEnabled)
             {
@@ -71,6 +68,14 @@ namespace SpecFlowHelper.Steps
 
             Log("Starting web app...");
             WebHostHelper.StartAndWaitForResponse(AppConfig.WebAppProjectFolderName, AppConfig.WebAppPort);
+        }
+
+        public static void StopWebServers()
+        {
+            Log("Killing web server processes...");
+            ProcessHelper.KillAll(WebHostHelper.WebHostProcessName);
+            ProcessHelper.KillAll("iisexpress");
+            WebHostHelper.KillAll();
         }
 
         /// <summary>
@@ -101,6 +106,7 @@ namespace SpecFlowHelper.Steps
         {
             try
             {
+                StopWebServers();
                 Driver.Quit();
             }
             catch (Exception)
@@ -144,6 +150,16 @@ namespace SpecFlowHelper.Steps
         public static void NavigateBackToMainWindow()
         {
             Browser.Current.NavigateBackToMainWindow();
+        }
+
+        public static void ScrollToTop()
+        {
+            RunJS("window.scrollTo(0, 0)");
+        }
+
+        public static void ScrollToBottom()
+        {
+            RunJS("window.scrollTo(0, document.body.scrollHeight)");
         }
         #endregion
 
@@ -195,7 +211,7 @@ namespace SpecFlowHelper.Steps
             try
             {
                 Attempt(() =>
-                {
+                {                    
                     ClickOnce(by, false);
 
                     return true;
@@ -255,22 +271,27 @@ namespace SpecFlowHelper.Steps
             }
             catch (Exception ex)
             {
-                if (tryMoveByOffset && ex.Message.Contains("Element is not clickable at point"))
+                if (ex.Message.Contains("Element is not clickable at point"))
                 {
-                    Log("MoveByOffset");
-                    var element = FindElement(by);
-                    var actions = new Actions(Driver);
-                    actions
-                        .MoveToElement(element)
-                        .MoveByOffset(1, 0)
-                        .Click()
-                        .Build()
-                        .Perform();
+                    StepHelper.MoveToElement(by);
+
+                    if (tryMoveByOffset)
+                    {
+                        Log("MoveByOffset");
+                        var element = FindElement(by);
+                        var actions = new Actions(Driver);
+                        actions
+                            .MoveToElement(element)
+                            .MoveByOffset(1, 0)
+                            .Click()
+                            .Build()
+                            .Perform();
+                    }
+
+                    return;
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;                
             }
         }
 
@@ -283,7 +304,7 @@ namespace SpecFlowHelper.Steps
 
                 var actions = new Actions(Driver);
                 actions.MoveToElement(element).Build().Perform();
-
+       
                 return true;
             }, attempts);
         }

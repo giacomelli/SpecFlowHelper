@@ -1,26 +1,45 @@
-﻿using HelperSharp;
-using OpenQA.Selenium;
+﻿using SpecFlowHelper.Steps.Localization;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
 {
+    /// <summary>
+    /// Checkbox steps.
+    /// </summary>
     [Binding]
-    public class CheckboxSteps : StepsBase
+    public sealed class CheckboxSteps : StepsBase
     {
-        [When(@"marco a checkbox '(.*)'")]
-        public void QuandoMarcoACheckbox(string checkboxLabel)
+        #region Properties
+        private ICheckboxStepsStrategy Strategy
         {
-            var by = By.XPath("//label[contains(., '{0}') and contains(@class, 'btn')]|//input[@title='{0}' and @type='checkbox']|//label[@class='ng-binding' and text()='{0}']/following-sibling::label".With(checkboxLabel));
-            AssertHelper.AssertIsNotChecked(by);
-            StepHelper.Click(by);
+            get
+            {
+                return StrategyFactory.Create<ICheckboxStepsStrategy, CheckboxSteps>(this);
+            }
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// When check the checkbox.
+        /// </summary>
+        /// <param name="checkbox">The checkbox.</param>
+        [When(Locale.WhenCheckTheCheckbox)]
+        public void WhenCheckTheCheckbox(string checkbox)
+        {
+            Strategy.WhenCheckTheCheckbox(checkbox);
         }
 
-        [When(@"desmarco a checkbox '(.*)'")]
-        public void QuandoDesmarcoACheckbox(string checkboxLabel)
+        /// <summary>
+        /// Whens uncheck the checkbox.
+        /// </summary>
+        /// <param name="checkbox">The checkbox.</param>
+        [When(Locale.WhenUncheckTheCheckbox)]
+        public void WhenUncheckTheCheckbox(string checkbox)
         {
-            var by = By.CssSelector("input[title='{0}'][type='checkbox']".With(checkboxLabel));
-            AssertHelper.AssertIsChecked(by);
-            StepHelper.Click(by);
+            Strategy.WhenUncheckTheCheckbox(checkbox);
         }
+        #endregion
     }
 }

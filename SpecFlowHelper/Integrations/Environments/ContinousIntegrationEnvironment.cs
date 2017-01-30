@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpecFlowHelper.Logging;
+using System;
 
 namespace SpecFlowHelper.Integrations.Environments
 {
@@ -20,6 +21,7 @@ namespace SpecFlowHelper.Integrations.Environments
         public ContinousIntegrationEnvironment()
         {
             Attempts = Convert.ToInt32(Environment.GetEnvironmentVariable("seleniumAttempts"));
+            LogHelper.Log("Attempts read from seleniumAttempts environment variable: {0}", Attempts);
             WaitMilliseconds = 3000;
             ShouldAbortOnFirstTestError = true;
         }
@@ -37,6 +39,7 @@ namespace SpecFlowHelper.Integrations.Environments
             };
 
             var implicitlyWaitSeconds = TimeSpan.FromSeconds(Convert.ToInt32(Environment.GetEnvironmentVariable("seleniumImplicitlyWaitSeconds")));
+            LogHelper.Log("ImplicitlyWait read from seleniumImplicitlyWaitSeconds environment variable: {0}", implicitlyWaitSeconds);
 
             ExecutionEvents.BrowserInitialized += (sender, args) =>
             {
