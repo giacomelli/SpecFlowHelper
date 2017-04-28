@@ -39,6 +39,8 @@ namespace SpecFlowHelper.Configuration
 
         public static bool InitializeDBEnabled = false;
 
+        public static TimeSpan ScenarioTimeout = TimeSpan.FromMinutes(5);
+
         public static void Validate()
         {
             ValidateString("Configuration", Configuration);

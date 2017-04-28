@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using HelperSharp;
 using OpenQA.Selenium;
+using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Integrations;
 using SpecFlowHelper.Integrations.Browsers;
 using TechTalk.SpecFlow;
@@ -10,7 +11,7 @@ using TechTalk.SpecFlow;
 namespace SpecFlowHelper.Steps
 {
     [Binding]
-    public class StepHooks
+    public static class StepHooks
     {
         private static int s_scenarioSuccessCount;
         private static int s_scenarioErrorCount;
@@ -18,6 +19,28 @@ namespace SpecFlowHelper.Steps
         private static Stopwatch s_featureStopwatch = new Stopwatch();
         private static Stopwatch s_scenarioStopwatch = new Stopwatch();
         private static bool s_shouldAbort;
+
+        static StepHooks ()
+        {
+            StepHelper.AttemptBegin += (s, e) =>
+            {
+                CheckTimeout();
+            };
+        }
+
+        [BeforeStep]
+        public static void BeforeStep()
+        {
+            CheckTimeout();
+        }
+
+        private static void CheckTimeout()
+        {
+            if (s_scenarioStopwatch.Elapsed >= AppConfig.ScenarioTimeout)
+            {
+                throw new TimeoutException("ScenarioTimeout reach: {0}".With(AppConfig.ScenarioTimeout));
+            }
+        }
 
         public static void RunOneTimeForFeature(string name, Action action)
         {
@@ -62,7 +85,7 @@ namespace SpecFlowHelper.Steps
         }
 
         [BeforeScenario]
-        public void RunBeforeScenario()
+        public static void RunBeforeScenario()
         {
             s_scenarioStopwatch.Restart();
             ValidateState();
@@ -78,7 +101,7 @@ namespace SpecFlowHelper.Steps
         }
 
         [AfterScenario]
-        public void RunAfterScenario()
+        public static void RunAfterScenario()
         {
             Thread.Sleep(2000);
 
@@ -100,7 +123,7 @@ namespace SpecFlowHelper.Steps
             StepHelper.Log("##### SCENARIOS: {0} SUCCESS AND {1} ERROR", s_scenarioSuccessCount, s_scenarioErrorCount);
 
             s_scenarioStopwatch.Stop();
-        }
+        }        
 
         public static void Abort()
         {

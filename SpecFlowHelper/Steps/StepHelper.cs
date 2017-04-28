@@ -18,6 +18,7 @@ namespace SpecFlowHelper.Steps
     /// </summary>
     public static class StepHelper
     {
+        public static event EventHandler AttemptBegin;
         #region Fields
         private static IJavaScriptExecutor s_jsExecutor;
         #endregion
@@ -571,6 +572,11 @@ namespace SpecFlowHelper.Steps
             {
                 try
                 {
+                    if (AttemptBegin != null)
+                    {
+                        AttemptBegin(typeof(StepHelper), EventArgs.Empty);
+                    }
+
                     if (command())
                     {
                         return true;
@@ -582,6 +588,10 @@ namespace SpecFlowHelper.Steps
                     }
 
                     Sleep(sleep, "waiting to try again");
+                }
+                catch(TimeoutException)
+                {
+                    throw;
                 }
                 catch (Exception ex)
                 {

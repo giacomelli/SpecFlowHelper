@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using HelperSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpecFlowHelper.Configuration;
@@ -45,7 +46,7 @@ namespace SpecFlowHelper.Steps
 
             var logFileName = GetLogFileName();
 
-            FileHelper.WaitForFileContentContains(logFileName, text, RuntimeEnvironment.Current.WaitMilliseconds * 60);
+            FileHelper.WaitForFileContentContains(logFileName, text, Convert.ToInt32(AppConfig.ScenarioTimeout.TotalSeconds));
             ProcessHelper.KillAll(AppConfig.JobsProcessName);
 
             FileAssert.ContainsContent(text, logFileName);
