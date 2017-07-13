@@ -39,7 +39,7 @@ namespace SpecFlowHelper.Integrations.Browsers
                 options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
             }
 
-            options.AddArguments("chrome.switches", "--disable-infobars --start-maximized");
+            options.AddArguments("chrome.switches", "--disable-infobars --start-maximized --no-sandbox");
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
 
