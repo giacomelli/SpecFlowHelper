@@ -57,6 +57,11 @@ namespace SpecFlowHelper.Integrations
         /// Occurs when URL opening.
         /// </summary>
         public static event EventHandler<UrlOpeningEventArgs> UrlOpening;
+
+        /// <summary>
+        /// Occurs when URL is opened.
+        /// </summary>
+        public static event EventHandler<UrlOpenedEventArgs> UrlOpened;
         #endregion
 
         #region Methods
@@ -138,6 +143,14 @@ namespace SpecFlowHelper.Integrations
             if (UrlOpening != null)
             {
                 UrlOpening(typeof(ExecutionEvents), args);
+            }
+        }
+
+        internal static void RaiseUrlOpened(UrlOpenedEventArgs args)
+        {
+            if (UrlOpened != null)
+            {
+                UrlOpened(typeof(ExecutionEvents), args);
             }
         }
         #endregion

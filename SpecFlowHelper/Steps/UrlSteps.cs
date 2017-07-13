@@ -36,10 +36,14 @@ namespace SpecFlowHelper
                 partialUrl = relativeUrl;
             }
 
-            var urlOpeningEventArgs = new UrlOpeningEventArgs(baseUrl, partialUrl);
-            ExecutionEvents.RaiseUrlOpening(urlOpeningEventArgs);
-            var fullUrl = AppConfig.UrlFormat.With(urlOpeningEventArgs.BaseUrl, urlOpeningEventArgs.RelativeUrl);
+            var urlOpeningArgs = new UrlOpeningEventArgs(Driver, baseUrl, partialUrl);
+            ExecutionEvents.RaiseUrlOpening(urlOpeningArgs);
+
+            var fullUrl = AppConfig.UrlFormat.With(urlOpeningArgs.BaseUrl, urlOpeningArgs.RelativeUrl);
             Driver.Navigate().GoToUrl(fullUrl);
+
+            var urlOpenedArgs = new UrlOpenedEventArgs(Driver, baseUrl, partialUrl);
+            ExecutionEvents.RaiseUrlOpened(urlOpenedArgs);
         }
 
         [Then(@"a url atual é '(.*)'")]

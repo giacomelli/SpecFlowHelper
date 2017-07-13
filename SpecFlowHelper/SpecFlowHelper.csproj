@@ -98,6 +98,8 @@
     <Compile Include="Integrations\Browsers\ChromeBrowser.cs" />
     <Compile Include="Integrations\Browsers\PhantomJSBrowser.cs" />
     <Compile Include="Integrations\Browsers\IEBrowser.cs" />
+    <Compile Include="Integrations\UrlEventArgsBase.cs" />
+    <Compile Include="Integrations\UrlOpenedEventArgs.cs" />
     <Compile Include="Integrations\UrlOpeningEventArgs.cs" />
     <Compile Include="Integrations\Database.cs" />
     <Compile Include="Integrations\Databases\IDatabase.cs" />

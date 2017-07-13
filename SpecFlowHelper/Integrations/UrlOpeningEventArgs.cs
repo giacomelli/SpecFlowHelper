@@ -1,35 +1,24 @@
 ﻿using System;
+using OpenQA.Selenium;
 
 namespace SpecFlowHelper.Integrations
 {
     /// <summary>
     /// UrlOpening event args.
     /// </summary>
-    public class UrlOpeningEventArgs : EventArgs
+    public class UrlOpeningEventArgs : UrlEventArgsBase
     {
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlOpeningEventArgs"/> class.
         /// </summary>
+        /// <param name="driver">The driver.</param>
         /// <param name="baseUrl">The base URL.</param>
         /// <param name="relativeUrl">The relative URL.</param>
-        public UrlOpeningEventArgs(string baseUrl, string relativeUrl)
+        public UrlOpeningEventArgs(IWebDriver driver, string baseUrl, string relativeUrl)
+            :base(driver, baseUrl, relativeUrl)
         {
-            BaseUrl = baseUrl;
-            RelativeUrl = relativeUrl;
         }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets or sets the base URL.
-        /// </summary>
-        public string BaseUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the relative URL.
-        /// </summary>
-        public string RelativeUrl { get; set; }
-        #endregion
+        #endregion        
     }
 }
