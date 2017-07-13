@@ -91,13 +91,6 @@ namespace SpecFlowHelper.Steps
             ValidateState();
             var title = ScenarioContext.Current.ScenarioInfo.Title;
             StepHelper.Log("##### SCENARIO BEGIN: \"{0}\"", title);
-
-            // Writes to browser window.
-            if (Browser.Current.Kind != BrowserKind.IE)
-            {
-                StepHelper.Driver.Navigate().GoToUrl("data:text/html, <html><title>SpecFlowHelper</title><body contenteditable style='font-size:48pt;text-align:center;'>");
-                StepHelper.EnterValue(By.TagName("body"), title);
-            }
         }
 
         [AfterScenario]
