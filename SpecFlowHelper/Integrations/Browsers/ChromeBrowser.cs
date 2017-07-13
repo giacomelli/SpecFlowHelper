@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using TestSharp;
@@ -42,7 +43,7 @@ namespace SpecFlowHelper.Integrations.Browsers
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
 
-            return new ChromeDriver(driverFolder, options);
+            return new ChromeDriver(driverFolder, options, TimeSpan.FromMinutes(3));
         }
 
         public override void Kill()
