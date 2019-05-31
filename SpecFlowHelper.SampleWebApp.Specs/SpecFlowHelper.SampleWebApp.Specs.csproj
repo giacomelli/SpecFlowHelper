@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.props" Condition="Exists('..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.props')" />
+  <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
+  <Import Project="..\packages\NUnit3TestAdapter.3.13.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.13.0\build\net35\NUnit3TestAdapter.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpecFlowHelper.SampleWebApp.Specs</RootNamespace>
     <AssemblyName>SpecFlowHelper.SampleWebApp.Specs</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +19,9 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +51,9 @@
       <HintPath>..\packages\HelperSharp.0.0.4.2\lib\net35\HelperSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -55,6 +64,9 @@
     </Reference>
     <Reference Include="TechTalk.SpecFlow, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.3.0.213\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecFlow.NUnit.SpecFlowPlugin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.NUnit.3.0.213\lib\net45\TechTalk.SpecFlow.NUnit.SpecFlowPlugin.dll</HintPath>
     </Reference>
     <Reference Include="TestSharp, Version=0.0.6.0, Culture=neutral, PublicKeyToken=76c905e92dbc6707, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,68 +88,9 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Features\Browser.feature.cs">
-      <DependentUpon>Browser.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\RadioButton.feature.cs">
-      <DependentUpon>RadioButton.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Combobox.feature.cs">
-      <DependentUpon>Combobox.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Badge.feature.cs">
-      <DependentUpon>Badge.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Button.feature.cs">
-      <DependentUpon>Button.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Checkbox.feature.cs">
-      <DependentUpon>Checkbox.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Config.feature.cs">
-      <DependentUpon>Config.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Infrastructure.feature.cs">
-      <DependentUpon>Infrastructure.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Download.feature.cs">
-      <DependentUpon>Download.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\IFrame.feature.cs">
-      <DependentUpon>IFrame.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Features\Sample1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Sample1.feature</DependentUpon>
-    </Compile>
     <Compile Include="Integrations\Environments\SampleContinuousIntegrationEnvironment.cs" />
     <Compile Include="Integrations\Environments\SampleDevelopmentEnvironment.cs" />
     <Compile Include="Integrations\SpecFlowHeperConfig.cs" />
@@ -156,52 +109,23 @@
     <Content Include="Drivers\phantomjs.exe" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Features\Browser.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Browser.feature.cs</LastGenOutput>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="Features\RadioButton.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RadioButton.feature.cs</LastGenOutput>
+    <None Include="Features\Browser.feature" />
+    <None Include="Features\RadioButton.feature" />
+    <None Include="Features\Combobox.feature" />
+    <None Include="Features\Badge.feature" />
+    <None Include="Features\Button.feature" />
+    <None Include="Features\Checkbox.feature" />
+    <None Include="Features\Config.feature" />
+    <None Include="Features\Infrastructure.feature" />
+    <None Include="Features\Download.feature" />
+    <None Include="Features\IFrame.feature" />
+    <None Include="Features\Sample1.feature" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="Features\Combobox.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Combobox.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Badge.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Badge.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Button.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Button.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Checkbox.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Checkbox.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Config.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Config.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Infrastructure.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Infrastructure.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Download.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Download.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\IFrame.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>IFrame.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Sample1.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Sample1.feature.cs</LastGenOutput>
-    </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -223,6 +147,16 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.13.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.13.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.12.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.targets'))" />
+  </Target>
+  <Import Project="..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.targets" Condition="Exists('..\packages\SpecFlow.NUnit.3.0.213\build\SpecFlow.NUnit.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using HelperSharp;
 using OpenQA.Selenium;
@@ -635,6 +636,37 @@ namespace SpecFlowHelper.Steps
             Sleep(Browser.Current.WaitMilliseconds, reason);
         }
         #endregion
+
+        private static Regex _getCmdRegex = new Regex(@"(?<cmd>^\S+) (?<expression>.+)", RegexOptions.Compiled);
+        private static Regex _clearExpressionRegex = new Regex(@"(^\s+|\s$)", RegexOptions.Compiled);
+        public static void Run(this StepsBase step, string scenario)
+        {
+            var lines = scenario.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lastCmd = string.Empty;
+
+            foreach(var line in lines)
+            {
+                var match = _getCmdRegex.Match(line);
+                var cmd = match.Groups["cmd"].Value.ToUpperInvariant();
+                var expression = _clearExpressionRegex.Replace(match.Groups["expression"].Value, string.Empty);
+
+                if (cmd == "E")
+                    cmd = lastCmd;
+
+                switch(cmd)
+                {
+                    case "QUANDO":
+                        step.When(expression);
+                        break;
+
+                    case "ENTÃO":
+                        step.Then(expression);
+                        break;
+                }
+
+                lastCmd = cmd;
+            }
+        }
 
         #endregion
     }
