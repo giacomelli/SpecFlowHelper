@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using HelperSharp;
 using SpecFlowHelper.Integrations.Browsers;
 using SpecFlowHelper.Integrations.Environments;
@@ -27,6 +28,7 @@ namespace SpecFlowHelper.Configuration
         public static bool WebApiEnabled = true;
         public static string WebApiProjectFolderName;
         public static int WebApiPort;
+        public static HttpStatusCode? WebApiExpectedStatusCode = HttpStatusCode.OK;
 
         public static string WebAppProjectFolderName;
         public static int WebAppPort;

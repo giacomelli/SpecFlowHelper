@@ -64,7 +64,7 @@ namespace SpecFlowHelper.Steps
             if (AppConfig.WebApiEnabled)
             {
                 Log("Starting web api...");
-                WebHostHelper.StartAndWaitForResponse(AppConfig.WebApiProjectFolderName, AppConfig.WebApiPort);
+                WebHostHelper.StartAndWaitForResponse(AppConfig.WebApiProjectFolderName, AppConfig.WebApiPort, AppConfig.WebApiExpectedStatusCode);
             }
 
             Log("Starting web app...");

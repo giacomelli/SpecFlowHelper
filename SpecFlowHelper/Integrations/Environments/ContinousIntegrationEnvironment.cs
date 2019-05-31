@@ -23,7 +23,7 @@ namespace SpecFlowHelper.Integrations.Environments
             Attempts = Convert.ToInt32(Environment.GetEnvironmentVariable("seleniumAttempts"));
             LogHelper.Log("Attempts read from seleniumAttempts environment variable: {0}", Attempts);
             WaitMilliseconds = 3000;
-            ShouldAbortOnFirstTestError = true;
+            ShouldAbortOnFirstTestError = false;
         }
         #endregion
 
