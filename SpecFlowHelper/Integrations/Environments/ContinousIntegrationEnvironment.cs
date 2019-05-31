@@ -44,7 +44,7 @@ namespace SpecFlowHelper.Integrations.Environments
             ExecutionEvents.BrowserInitialized += (sender, args) =>
             {
                 var driver = Browser.Current.Driver;
-                driver.Manage().Timeouts().ImplicitlyWait(implicitlyWaitSeconds);
+                driver.Manage().Timeouts().ImplicitWait = implicitlyWaitSeconds;
 
                 var proxy = Browser.Current.Proxy;
                 proxy.HttpProxy = Environment.GetEnvironmentVariable("httpProxy");
@@ -54,7 +54,7 @@ namespace SpecFlowHelper.Integrations.Environments
             ExecutionEvents.IframeNavigated += (sender, args) =>
             {
                 var driver = Browser.Current.Driver;
-                driver.Manage().Timeouts().ImplicitlyWait(implicitlyWaitSeconds);
+                driver.Manage().Timeouts().ImplicitWait = implicitlyWaitSeconds;
             };
         }
         #endregion

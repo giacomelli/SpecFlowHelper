@@ -30,9 +30,9 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// </returns>
         protected override IWebDriver PerformInitialize(string driverFolder, Proxy proxy)
         {
-            var profile = new FirefoxProfile();
-            profile.SetProxyPreferences(proxy);
-            return new FirefoxDriver(profile);
+            var options = new FirefoxOptions();
+            options.Proxy = proxy;
+            return new FirefoxDriver(options);
         }
 
         public override void Kill()

@@ -1,6 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
-using OpenQA.Selenium.Remote;
 using TestSharp;
 
 namespace SpecFlowHelper.Integrations.Browsers
@@ -31,10 +29,11 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// </returns>
         protected override IWebDriver PerformInitialize(string driverFolder, Proxy proxy)
         {
-            var options = new PhantomJSOptions();
-            options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
+            throw new System.NotImplementedException();
+            //var options = new PhantomJSOptions();
+            //options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
 
-            return new PhantomJSDriver(driverFolder, options);
+            //return new PhantomJSDriver(driverFolder, options);
         }
 
         public override void Kill()
