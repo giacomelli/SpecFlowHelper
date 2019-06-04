@@ -538,7 +538,7 @@ namespace SpecFlowHelper.Steps
             LogHelper.Log(message, args);
         }
 
-        public static string GetText(By by)
+        public static string GetText(By by, int attempts = 10)
         {
             string text = null;
 
@@ -546,7 +546,7 @@ namespace SpecFlowHelper.Steps
             {
                 text = Driver.FindElement(by).Text;
                 return true;
-            });
+            }, attempts);
 
             return text;
         }
@@ -584,7 +584,7 @@ namespace SpecFlowHelper.Steps
                     }
                     else
                     {
-                        Log("Atttempt {0} of {1} failed. Sleeping {2} milliseconds: {3} on {4}", i + 1, attempts, sleep, command.Method.Name, Driver.Url);
+                        Log("Attempt {0} of {1} failed. Sleeping {2} milliseconds: {3} on {4}", i + 1, attempts, sleep, command.Method.Name, Driver.Url);
                         Browser.Current.Renavigate();
                     }
 
@@ -601,7 +601,7 @@ namespace SpecFlowHelper.Steps
                         break;
                     }
 
-                    Log("Atttempt {0} of {1} failed with exception: {2}: {3}", i + 1, attempts, ex.Message, command.Method.Name);
+                    Log("Attempt {0} of {1} failed with exception: {2}: {3}", i + 1, attempts, ex.Message, command.Method.Name);
                     Sleep(sleep, "waiting to try again");
                     continue;
                 }
@@ -637,18 +637,27 @@ namespace SpecFlowHelper.Steps
         }
         #endregion
 
-        private static Regex _getCmdRegex = new Regex(@"(?<cmd>^\S+) (?<expression>.+)", RegexOptions.Compiled);
-        private static Regex _clearExpressionRegex = new Regex(@"(^\s+|\s$)", RegexOptions.Compiled);
+        private static Regex _getCmdRegex = new Regex(@"\s+(?<cmd>\S+) (?<expression>.+)\r*", RegexOptions.Compiled);
         public static void Run(this StepsBase step, string scenario)
         {
             var lines = scenario.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var lastCmd = string.Empty;
 
-            foreach(var line in lines)
+            foreach (var line in lines)
             {
+                if (String.IsNullOrWhiteSpace(line))
+                    continue;
+
                 var match = _getCmdRegex.Match(line);
+
+                if (!match.Success)
+                {
+                    Log($"'{line}' is an invalid expression.");
+                    continue;
+                }
+
                 var cmd = match.Groups["cmd"].Value.ToUpperInvariant();
-                var expression = _clearExpressionRegex.Replace(match.Groups["expression"].Value, string.Empty);
+                var expression = match.Groups["expression"].Value;
 
                 if (cmd == "E")
                     cmd = lastCmd;

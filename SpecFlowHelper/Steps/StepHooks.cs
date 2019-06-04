@@ -32,6 +32,7 @@ namespace SpecFlowHelper.Steps
         public static void BeforeStep()
         {
             CheckTimeout();
+            StepHelper.Log($"## {ScenarioStepContext.Current.StepInfo.Text}");
         }
 
         private static void CheckTimeout()
