@@ -16,7 +16,7 @@ namespace SpecFlowHelper.SampleWebApp.Specs.Integrations.Environments
 
             ExecutionEvents.DatabaseInitialized += (sender, args) =>
             {
-                var webApiConfigFilename = Path.Combine(VSProjectHelper.GetProjectFolderPath(AppConfig.WebApiProjectFolderName), "Web.config");
+                var webApiConfigFilename = Path.Combine(VSProjectHelper.GetProjectFolderPath(AppConfig.WebProjects.SingleWebApi().FolderName), "Web.config");
                 var content = File.ReadAllText(webApiConfigFilename);
                 content = content.Replace(
                     "connectionString=\"Data Source=localhost;Initial Catalog=Test;User ID=AppUser;Password=AppUser;MultipleActiveResultSets=True\"",

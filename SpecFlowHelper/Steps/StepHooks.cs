@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 using HelperSharp;
-using OpenQA.Selenium;
 using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Integrations;
-using SpecFlowHelper.Integrations.Browsers;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
@@ -31,8 +29,8 @@ namespace SpecFlowHelper.Steps
         [BeforeStep]
         public static void BeforeStep()
         {
-            CheckTimeout();
-            StepHelper.Log($"## {ScenarioStepContext.Current.StepInfo.Text}");
+            CheckTimeout();            
+            StepHelper.Log(ScenarioStepContext.Current.StepInfo.Text);
         }
 
         private static void CheckTimeout()
@@ -66,7 +64,7 @@ namespace SpecFlowHelper.Steps
         public static void RunAfterTest()
         {
             s_testStopwatch.Stop();
-            StepHelper.Log("##### TEST RUN IN: {0} SECONDS".With(s_testStopwatch.Elapsed.TotalSeconds));
+            StepHelper.Log("ELAPSED: {0} seconds".With(s_testStopwatch.Elapsed.TotalSeconds));
             StepHelper.Quit();
         }
 
@@ -75,14 +73,16 @@ namespace SpecFlowHelper.Steps
         {
             s_featureStopwatch.Restart();
             var title = FeatureContext.Current.FeatureInfo.Title;
-            StepHelper.Log("##### FEATURE BEGIN: \"{0}\"", title);
+            StepHelper.Indent();
+            StepHelper.Log("FEATURE BEGIN: {0}", title);
         }
 
         [AfterFeature]
         public static void RunAfterFeature()
         {
             s_featureStopwatch.Stop();
-            StepHelper.Log("##### FEATURE RUN IN: {0} SECONDS".With(s_featureStopwatch.Elapsed.TotalSeconds));
+            StepHelper.Log("ELAPSED: {0} seconds".With(s_featureStopwatch.Elapsed.TotalSeconds));
+            StepHelper.Undent();
         }
 
         [BeforeScenario]
@@ -90,8 +90,13 @@ namespace SpecFlowHelper.Steps
         {
             s_scenarioStopwatch.Restart();
             ValidateState();
-            var title = ScenarioContext.Current.ScenarioInfo.Title;
-            StepHelper.Log("##### SCENARIO BEGIN: \"{0}\"", title);
+            var info = ScenarioContext.Current.ScenarioInfo;
+
+            StepHelper.LogNewLine();
+            StepHelper.Indent();
+            StepHelper.LogSeparator();
+            StepHelper.Log($"SCENARIO BEGIN: {info.Title}");
+            StepHelper.Log($"TAGS: {String.Join(", ", FeatureContext.Current.FeatureInfo.Tags)}");
         }
 
         [AfterScenario]
@@ -100,10 +105,14 @@ namespace SpecFlowHelper.Steps
             Thread.Sleep(2000);
 
             var scenario = ScenarioContext.Current;
-            var title = ScenarioContext.Current.ScenarioInfo.Title;
+            var info = scenario.ScenarioInfo;
             var status = scenario.TestError == null ? "success" : "error {0}{1}".With(Environment.NewLine, scenario.TestError.Message);
-            StepHelper.Log("##### SCENARIO END: \"{0}\". Status: {1}", title, status);
-            StepHelper.Log("##### SCENARIO RUN IN: {0} SECONDS".With(s_scenarioStopwatch.Elapsed.TotalSeconds));
+
+            
+            StepHelper.Log($"SCENARIO END: {info.Title}");
+            StepHelper.Log($"STATUS: {status}");
+            StepHelper.Log($"TAGS: {String.Join(", ", FeatureContext.Current.FeatureInfo.Tags)}");
+            StepHelper.Log($"ELAPSED: {s_scenarioStopwatch.Elapsed.TotalSeconds} seconds");            
 
             if (status.Equals("success"))
             {
@@ -114,7 +123,10 @@ namespace SpecFlowHelper.Steps
                 s_scenarioErrorCount++;
             }
 
-            StepHelper.Log("##### SCENARIOS: {0} SUCCESS AND {1} ERROR", s_scenarioSuccessCount, s_scenarioErrorCount);
+            StepHelper.Log("SCENARIOS: {0} SUCCESS AND {1} ERROR", s_scenarioSuccessCount, s_scenarioErrorCount);
+            StepHelper.LogSeparator();
+            StepHelper.Undent();
+            StepHelper.LogNewLine();
 
             s_scenarioStopwatch.Stop();
         }        

@@ -21,7 +21,10 @@ namespace SpecFlowHelper.Integrations.Environments
         public ContinousIntegrationEnvironment()
         {
             Attempts = Convert.ToInt32(Environment.GetEnvironmentVariable("seleniumAttempts"));
-            LogHelper.Log("Attempts read from seleniumAttempts environment variable: {0}", Attempts);
+
+            if(Attempts != 0)
+                LogHelper.Log("Attempts read from seleniumAttempts environment variable: {0}", Attempts);
+
             WaitMilliseconds = 3000;
             ShouldAbortOnFirstTestError = false;
         }

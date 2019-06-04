@@ -15,7 +15,8 @@ namespace SpecFlowHelper.Steps.Strategies.Default
         /// </summary>
         public virtual void WhenClearWebApiCache()
         {
-            ConfigHelper.WriteAppSetting(AppConfig.WebApiProjectFolderName, "SpecFlowHelperLastRun", DateTime.Now.ToString("dd/MM/yyy HH:mm:ss:fff"));
+            var api = AppConfig.WebProjects.SingleWebApi();
+            ConfigHelper.WriteAppSetting(api.FolderName, "SpecFlowHelperLastRun", DateTime.Now.ToString("dd/MM/yyy HH:mm:ss:fff"));
             StepHelper.OpenBaseUrl();
         }
 

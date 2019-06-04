@@ -10,6 +10,7 @@ using OpenQA.Selenium.Support.UI;
 using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Integrations;
 using SpecFlowHelper.Logging;
+using TechTalk.SpecFlow;
 using TestSharp;
 
 namespace SpecFlowHelper.Steps
@@ -32,7 +33,6 @@ namespace SpecFlowHelper.Steps
         {
             Log("Initializing SpecFlowHelper...");
             AppConfig.Validate();
-            BaseURL = AppConfig.WebAppBaseUrl;
             StartWebServers();
         }
         #endregion
@@ -52,7 +52,14 @@ namespace SpecFlowHelper.Steps
         /// <summary>
         /// Obtém ou define a URL base do teste.
         /// </summary>
-        public static string BaseURL { get; set; }
+        public static string BaseURL
+        {
+            get
+            {
+                return AppConfig.BaseUrlSolver.Solve(ScenarioContext.Current, Driver);
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -62,14 +69,18 @@ namespace SpecFlowHelper.Steps
         {
             StopWebServers();
 
-            if (AppConfig.WebApiEnabled)
+            foreach (var webProject in AppConfig.WebProjects)
             {
-                Log("Starting web api...");
-                WebHostHelper.StartAndWaitForResponse(AppConfig.WebApiProjectFolderName, AppConfig.WebApiPort, AppConfig.WebApiExpectedStatusCode);
+                if (webProject.BaseUrl.Contains("://localhost"))
+                {
+                    Log($"Starting {webProject.FolderName} ({webProject.BaseUrl})...");
+                    WebHostHelper.StartAndWaitForResponse(webProject.FolderName, webProject.Port, webProject.ExpectedStatusCode);
+                }
+                else
+                {
+                    Log($"Using {webProject.FolderName} published on {webProject.BaseUrl}...");
+                }
             }
-
-            Log("Starting web app...");
-            WebHostHelper.StartAndWaitForResponse(AppConfig.WebAppProjectFolderName, AppConfig.WebAppPort);
         }
 
         public static void StopWebServers()
@@ -88,8 +99,6 @@ namespace SpecFlowHelper.Steps
             RuntimeEnvironment.Initialize(AppConfig.Environment);
             Database.Initialize();
             Browser.Initialize(AppConfig.BrowserKind);
-
-            StepHelper.OpenBaseUrl();
 
             s_jsExecutor = Driver as IJavaScriptExecutor;
             ExecutionEvents.RaiseWebDriverInitialized();
@@ -213,7 +222,7 @@ namespace SpecFlowHelper.Steps
             try
             {
                 Attempt(() =>
-                {                    
+                {
                     ClickOnce(by, false);
 
                     return true;
@@ -293,7 +302,7 @@ namespace SpecFlowHelper.Steps
                     return;
                 }
 
-                throw;                
+                throw;
             }
         }
 
@@ -306,7 +315,7 @@ namespace SpecFlowHelper.Steps
 
                 var actions = new Actions(Driver);
                 actions.MoveToElement(element).Build().Perform();
-       
+
                 return true;
             }, attempts);
         }
@@ -535,7 +544,29 @@ namespace SpecFlowHelper.Steps
 
         public static void Log(string message, params object[] args)
         {
-            LogHelper.Log(message, args);
+            LogHelper.Log($"{_indentation} {message}", args);
+        }
+
+        public static void LogSeparator()
+        {
+            LogHelper.Log($"######################################################################");
+        }
+
+        public static void LogNewLine()
+        {
+            StepHelper.Log(string.Empty);
+        }
+
+        private static string _indentation;
+        public static void Indent()
+        {
+            _indentation += "#";
+        }
+
+        public static void Undent()
+        {
+            if (_indentation.Length > 0)
+                _indentation = _indentation.Substring(0, _indentation.Length - 1);
         }
 
         public static string GetText(By by, int attempts = 10)
@@ -584,13 +615,15 @@ namespace SpecFlowHelper.Steps
                     }
                     else
                     {
-                        Log("Attempt {0} of {1} failed. Sleeping {2} milliseconds: {3} on {4}", i + 1, attempts, sleep, command.Method.Name, Driver.Url);
+                        if (i > AppConfig.LogAttemptsAfter)
+                            Log("Attempt {0} of {1} failed. URL: {3}", i + 1, attempts, sleep, Driver.Url);
+
                         Browser.Current.Renavigate();
                     }
 
-                    Sleep(sleep, "waiting to try again");
+                    Sleep(sleep);
                 }
-                catch(TimeoutException)
+                catch (TimeoutException)
                 {
                     throw;
                 }
@@ -601,8 +634,10 @@ namespace SpecFlowHelper.Steps
                         break;
                     }
 
-                    Log("Attempt {0} of {1} failed with exception: {2}: {3}", i + 1, attempts, ex.Message, command.Method.Name);
-                    Sleep(sleep, "waiting to try again");
+                    if (i > AppConfig.LogAttemptsAfter)
+                        Log("Attempt {0} of {1} failed with exception: {2}: {3}", i + 1, attempts, ex.Message, command.Method.Name);
+
+                    Sleep(sleep);
                     continue;
                 }
             }
@@ -610,7 +645,7 @@ namespace SpecFlowHelper.Steps
             return command();
         }
 
-        public static void Sleep(int milliseconds, string reason)
+        public static void Sleep(int milliseconds, string reason = null)
         {
             var remaining = milliseconds;
 
@@ -621,7 +656,9 @@ namespace SpecFlowHelper.Steps
 
             if (remaining > 0)
             {
-                Log("Sleep {0}: {1}", remaining, reason);
+                if (!String.IsNullOrEmpty(reason))
+                    Log("Sleep {0}: {1}", remaining, reason);
+
                 Thread.Sleep(Convert.ToInt32(remaining));
             }
         }
@@ -662,7 +699,7 @@ namespace SpecFlowHelper.Steps
                 if (cmd == "E")
                     cmd = lastCmd;
 
-                switch(cmd)
+                switch (cmd)
                 {
                     case "QUANDO":
                         step.When(expression);

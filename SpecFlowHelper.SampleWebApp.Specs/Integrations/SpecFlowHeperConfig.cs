@@ -23,13 +23,11 @@ namespace SpecFlowHelper.SampleWebApp.Specs.Integrations
             AppConfig.BrowserDriverFolder = VSProjectHelper.GetProjectFolderPath("SpecFlowHelper.SampleWebApp.Specs") + @"\Drivers";
             AppConfig.Configuration = "Debug";
 
-            AppConfig.WebApiEnabled = true;
-            AppConfig.WebApiProjectFolderName = "SpecFlowHelper.SampleWebApi";
-            AppConfig.WebApiPort = 8001;
-
-            AppConfig.WebAppProjectFolderName = "SpecFlowHelper.SampleWebApp";
-            AppConfig.WebAppPort = 8000;
-            AppConfig.WebAppBaseUrl = "http://localhost:8000";
+            AppConfig.WebProjects = new WebProjectConfig[]
+            {
+                new WebProjectConfig(WebProjectKind.Api, "SpecFlowHelper.SampleWebApi", 8001),
+                new WebProjectConfig(WebProjectKind.App, "SpecFlowHelper.SampleWebApp", 8000)
+            };
 
             AppConfig.JobsEnabled = true;
             AppConfig.JobsLogFileName = "SpecFlowHelper.SampleWindowsService-log.txt";
@@ -38,7 +36,7 @@ namespace SpecFlowHelper.SampleWebApp.Specs.Integrations
 
             ExecutionEvents.ElementClicking += (sender, args) =>
             {
-                LogHelper.Log("Will click on {0}".With(args.Element.TagName));
+                StepHelper.Log("Will click on {0}".With(args.Element.TagName));
             };
 
             StrategyFactory.Register<IComboboxStepsStrategy, ComboboxSteps>(new jQueryComboboxStepsStrategy());

@@ -15,7 +15,8 @@ namespace SpecFlowHelper.Steps.Strategies.Default
         /// <param name="value">The value.</param>
         public void WhenChangeWebConfigKey(string key, string value)
         {
-            ConfigHelper.WriteAppSetting(AppConfig.WebApiProjectFolderName, key, value);
+            var api = AppConfig.WebProjects.SingleWebApi();
+            ConfigHelper.WriteAppSetting(api.FolderName, key, value);
         }
     }
 }

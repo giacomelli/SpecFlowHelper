@@ -24,15 +24,9 @@ namespace SpecFlowHelper.Configuration
 
         public static IEnvironment Environment = new DevelopmentEnvironment();
         public static string Configuration;
-
-        public static bool WebApiEnabled = true;
-        public static string WebApiProjectFolderName;
-        public static int WebApiPort;
-        public static HttpStatusCode? WebApiExpectedStatusCode = HttpStatusCode.OK;
-
-        public static string WebAppProjectFolderName;
-        public static int WebAppPort;
-        public static string WebAppBaseUrl;
+        
+        public static WebProjectConfig[] WebProjects = new WebProjectConfig[0];
+        public static IBaseUrlSolver BaseUrlSolver = new DefaultBaseUrlSolver();
 
         public static bool JobsEnabled = true;
         public static string JobsProjectFolderName;
@@ -42,23 +36,19 @@ namespace SpecFlowHelper.Configuration
         public static bool InitializeDBEnabled = false;
 
         public static TimeSpan ScenarioTimeout = TimeSpan.FromMinutes(5);
+        public static int LogAttemptsAfter = 4;
 
         public static void Validate()
         {
             ValidateString("Configuration", Configuration);
             ValidateString("BrowserDriverFolder", BrowserDriverFolder);
 
-            if (WebApiEnabled)
+            foreach(var webProject in WebProjects)
             {
-                ValidateString("WebApiProjectFolderName", WebApiProjectFolderName);
-                ValidateProjectFolder("WebApiProjectFolderName", WebApiProjectFolderName);
-                ValidateInt("WebApiPort", WebApiPort);
+                ValidateString(nameof(WebProjectConfig.FolderName), webProject.FolderName);
+                ValidateProjectFolder(nameof(WebProjectConfig.FolderName), webProject.FolderName);
+                ValidateInt("Port", webProject.Port);
             }
-
-            ValidateString("WebAppProjectFolderName", WebAppProjectFolderName);
-            ValidateProjectFolder("WebAppProjectFolderName", WebAppProjectFolderName);
-            ValidateInt("WebAppPort", WebAppPort);
-            ValidateString("WebAppBaseUrl", WebAppBaseUrl);
 
             if (JobsEnabled)
             {

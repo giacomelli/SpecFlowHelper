@@ -112,6 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppConfig.cs" />
+    <Compile Include="Configuration\DefaultBaseUrlSolver.cs" />
+    <Compile Include="Configuration\FolderMapBaseUrlSolver.cs" />
+    <Compile Include="Configuration\IBaseUrlSolver.cs" />
+    <Compile Include="Configuration\WebProjectConfig.cs" />
+    <Compile Include="Configuration\WebProjectConfigExtensions.cs" />
     <Compile Include="Containers\AnchorContainer.cs" />
     <Compile Include="Containers\ContainerBase.cs" />
     <Compile Include="Containers\InputContainer.cs" />
