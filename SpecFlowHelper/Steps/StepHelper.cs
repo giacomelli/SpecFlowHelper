@@ -267,7 +267,6 @@ namespace SpecFlowHelper.Steps
 
         public static void ClickOnce(By by, bool tryMoveByOffset = true)
         {
-            Log("Click");
             try
             {
                 var element = FindElement(by);
@@ -288,7 +287,6 @@ namespace SpecFlowHelper.Steps
 
                     if (tryMoveByOffset)
                     {
-                        Log("MoveByOffset");
                         var element = FindElement(by);
                         var actions = new Actions(Driver);
                         actions
@@ -308,7 +306,6 @@ namespace SpecFlowHelper.Steps
 
         public static void MoveToElement(By by, int attempts = 10)
         {
-            Log("MoveToElement");
             Attempt(() =>
             {
                 var element = FindElement(by);
@@ -322,7 +319,6 @@ namespace SpecFlowHelper.Steps
 
         public static void Blur(By by, int attempts = 10)
         {
-            Log("Blur");
             Attempt(() =>
             {
                 var element = FindElement(By.TagName("body"));
@@ -389,7 +385,6 @@ namespace SpecFlowHelper.Steps
         /// <param name="by">O seletor do elemento.</param>
         public static IWebElement WaitElementIsPresent(By by)
         {
-            Log("WaitElementIsPresent");
             Attempt(() =>
             {
                 return IsElementPresent(by);
@@ -399,8 +394,6 @@ namespace SpecFlowHelper.Steps
             {
                 throw new InvalidOperationException("Element is not present: " + by);
             }
-
-            Log("Element is present.");
 
             return Driver.FindElement(by);
         }
@@ -490,8 +483,6 @@ namespace SpecFlowHelper.Steps
         {
             Attempt(() =>
             {
-                Log("EnterValue: {0}", value);
-
                 WaitElementIsPresent(by);
 
                 var element = Driver.FindElement(by);
@@ -520,10 +511,8 @@ namespace SpecFlowHelper.Steps
 
         public static void PressEnter(By by)
         {
-            Log("PressEnter");
             StepHelper.WaitElementIsPresent(by);
 
-            Log("Sending enter key");
             StepHelper.Attempt(() =>
             {
                 var element = FindFirstVisibleElement(by);
@@ -534,11 +523,9 @@ namespace SpecFlowHelper.Steps
 
         public static void PressTab(By by)
         {
-            Log("PressTab");
             StepHelper.WaitElementIsPresent(by);
             var element = Driver.FindElement(by);
 
-            Log("Sending tab key");
             element.SendKeys(Keys.Tab);
         }
 
@@ -549,7 +536,12 @@ namespace SpecFlowHelper.Steps
 
         public static void LogSeparator()
         {
-            LogHelper.Log($"######################################################################");
+            LogHelper.Log($"############################################################################################################################################");
+        }
+
+        public static void LogHighlighted(string message, params object[] args)
+        {
+            LogHelper.Log($"{_indentation} [{message}]", args);
         }
 
         public static void LogNewLine()

@@ -28,7 +28,7 @@ namespace SpecFlowHelper.Configuration
         public static WebProjectConfig[] WebProjects = new WebProjectConfig[0];
         public static IBaseUrlSolver BaseUrlSolver = new DefaultBaseUrlSolver();
 
-        public static bool JobsEnabled = true;
+        public static bool JobsEnabled = false;
         public static string JobsProjectFolderName;
         public static string JobsProcessName;
         public static string JobsLogFileName;

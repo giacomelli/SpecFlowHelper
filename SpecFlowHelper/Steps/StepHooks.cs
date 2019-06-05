@@ -29,7 +29,7 @@ namespace SpecFlowHelper.Steps
         [BeforeStep]
         public static void BeforeStep()
         {
-            CheckTimeout();            
+            CheckTimeout();
             StepHelper.Log(ScenarioStepContext.Current.StepInfo.Text);
         }
 

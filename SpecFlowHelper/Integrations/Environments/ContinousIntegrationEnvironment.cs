@@ -42,7 +42,9 @@ namespace SpecFlowHelper.Integrations.Environments
             };
 
             var implicitlyWaitSeconds = TimeSpan.FromSeconds(Convert.ToInt32(Environment.GetEnvironmentVariable("seleniumImplicitlyWaitSeconds")));
-            LogHelper.Log("ImplicitlyWait read from seleniumImplicitlyWaitSeconds environment variable: {0}", implicitlyWaitSeconds);
+
+            if(implicitlyWaitSeconds.TotalSeconds > 0)
+                LogHelper.Log("ImplicitlyWait read from seleniumImplicitlyWaitSeconds environment variable: {0}", implicitlyWaitSeconds);
 
             ExecutionEvents.BrowserInitialized += (sender, args) =>
             {

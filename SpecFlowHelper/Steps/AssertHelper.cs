@@ -31,7 +31,12 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                return StepHelper.Driver.Url.Contains(partialUrl);
+                var result = StepHelper.Driver.Url.Contains(partialUrl);
+
+                if (!result)
+                    StepHelper.Log($"Current url: {StepHelper.Driver.Url}");
+
+                return result;
             });
 
             Assert.IsTrue(StepHelper.Driver.Url.Contains(partialUrl));
@@ -43,7 +48,12 @@ namespace SpecFlowHelper.Steps
 
             StepHelper.Attempt(() =>
             {
-                return StepHelper.Driver.Url.Equals(fullUrl);
+                var result = StepHelper.Driver.Url.Equals(fullUrl);
+
+                if (!result)
+                    StepHelper.Log($"Current url: {StepHelper.Driver.Url}");
+
+                return result;
             });
 
             Assert.AreEqual(fullUrl, StepHelper.Driver.Url);
@@ -53,7 +63,7 @@ namespace SpecFlowHelper.Steps
         /// Verifica se um texto existe no corpo da página.
         /// </summary>
         /// <param name="text">O texto a ser verificado.</param>
-        public static void AssertTextExists(string text)
+        public static void AssertTextExists(string text, int attempts = 10)
         {
             var by = By.CssSelector("body");
             var regex = new Regex(Regex.Escape(text), RegexOptions.IgnoreCase);
@@ -61,7 +71,7 @@ namespace SpecFlowHelper.Steps
             var exists = StepHelper.Attempt(() =>
             {
                 return IsElementPresent(by) && regex.IsMatch(Driver.FindElement(by).Text);
-            });
+            }, attempts);
 
             Assert.IsTrue(exists, text);
         }
