@@ -69,6 +69,8 @@ namespace SpecFlowHelper.Steps
         {
             StopWebServers();
 
+            Log($"Using IIS Express from '{WebHostHelper.WebDevWebServerPath}...");
+
             foreach (var webProject in AppConfig.WebProjects)
             {
                 if (webProject.BaseUrl.Contains("://localhost"))
@@ -383,12 +385,13 @@ namespace SpecFlowHelper.Steps
         /// Realiza algumas tentativas caso o elemento retornado por by ainda não esteja presente na página.
         /// </summary>
         /// <param name="by">O seletor do elemento.</param>
-        public static IWebElement WaitElementIsPresent(By by)
+        /// <param name="attempts">O número de tentativas.</param>
+        public static IWebElement WaitElementIsPresent(By by, int attempts = 10)
         {
             Attempt(() =>
             {
                 return IsElementPresent(by);
-            });
+            }, attempts);
 
             if (!IsElementPresent(by))
             {
@@ -483,7 +486,7 @@ namespace SpecFlowHelper.Steps
         {
             Attempt(() =>
             {
-                WaitElementIsPresent(by);
+                WaitElementIsPresent(by, 1);
 
                 var element = Driver.FindElement(by);
 

@@ -29,6 +29,7 @@ namespace SpecFlowHelper.Configuration
         public static IBaseUrlSolver BaseUrlSolver = new DefaultBaseUrlSolver();
 
         public static bool JobsEnabled = false;
+        public static string JobsEnabledInfo = "default configuration";
         public static string JobsProjectFolderName;
         public static string JobsProcessName;
         public static string JobsLogFileName;

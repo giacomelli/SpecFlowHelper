@@ -123,6 +123,7 @@
     <Compile Include="Containers\ToastContainer.cs" />
     <Compile Include="Extensions\AngularJsExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="Integrations\Browser.cs" />
     <Compile Include="Integrations\Browsers\BrowserBase.cs" />
     <Compile Include="Integrations\Browsers\ChromeBrowser.cs" />

@@ -3,6 +3,7 @@ using System.IO;
 using HelperSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SpecFlowHelper.Configuration;
+using SpecFlowHelper.Helpers;
 using SpecFlowHelper.Integrations;
 using TechTalk.SpecFlow;
 using TestSharp;
@@ -32,10 +33,46 @@ namespace SpecFlowHelper.Steps
             StepHelper.Wait("Aguardando job....");
 
             StepHelper.Log("Running job");
-            ProcessHelper.Run(exeFileName, "-job:{0}".With(name), false);
+
+            if (string.IsNullOrEmpty(name))
+                ProcessHelper.Run(exeFileName, string.Empty, false);
+            else
+                ProcessHelper.Run(exeFileName, "-job:{0}".With(name), false);
 
             EntaoExisteOTextoNoLogDoJob(text);
             QuandoEncerroOJob(name);
+        }
+
+        [When(@"executo o job e aguardo pelo texto '(.*)' no log")]
+        public void QuandoExecutoOJob(string text)
+        {
+            QuandoExecutoOJob(null, text);
+        }
+
+        [When(@"executo o job e aguardo pelo texto '(.*)' na saída")]
+        public void QuandoExecutoOJobEAguardoPeloTextoNaSaida(string text)
+        {
+            if (AppConfig.JobsEnabled)
+            {
+                var exeFileName = GetExeFileName();
+
+                StepHelper.Log("Executable filename: {0}", exeFileName);
+
+                var processName = AppConfig.JobsProcessName;
+
+                QuandoEncerroOJob(null);
+
+                StepHelper.Wait("Waiting job....");
+                StepHelper.Log("Running job");
+
+                ProcessHelperEx.Run(exeFileName, string.Empty, text);
+
+                QuandoEncerroOJob(null);
+            }
+            else
+            {
+                StepHelper.Log($"Job disabled: {AppConfig.JobsEnabledInfo}");
+            }
         }
 
 
@@ -66,7 +103,11 @@ namespace SpecFlowHelper.Steps
         {
             var processName = AppConfig.JobsProcessName;
 
-            StepHelper.Log("Kiling {0} process for job '{1}'", processName, name);
+            if (String.IsNullOrEmpty(name))
+                StepHelper.Log("Kiling {0} process", processName);
+            else
+                StepHelper.Log("Kiling {0} process for job '{1}'", processName, name);
+
             ProcessHelper.KillAll(processName);
             ProcessHelper.WaitForExit(processName);
         }
@@ -74,8 +115,7 @@ namespace SpecFlowHelper.Steps
 
         private static string GetLogFileName()
         {
-            var logFileName = Path.Combine(GetBinPath(), "logs");
-            logFileName = Path.Combine(logFileName, AppConfig.JobsLogFileName);
+            var logFileName = Path.Combine(GetRootPath(), AppConfig.JobsLogFileName);
             return logFileName;
         }
 
