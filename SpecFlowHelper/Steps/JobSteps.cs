@@ -75,6 +75,30 @@ namespace SpecFlowHelper.Steps
             }
         }
 
+        [When(@"executo o job")]
+        public void QuandoExecutoOJob()
+        {
+            if (AppConfig.JobsEnabled)
+            {
+                var exeFileName = GetExeFileName();
+
+                StepHelper.Log("Executable filename: {0}", exeFileName);
+
+                var processName = AppConfig.JobsProcessName;
+
+                QuandoEncerroOJob(null);
+
+                StepHelper.Wait("Waiting job....");
+                StepHelper.Log("Running job");
+
+                ProcessHelperEx.Run(exeFileName, string.Empty);
+            }
+            else
+            {
+                StepHelper.Log($"Job disabled: {AppConfig.JobsEnabledInfo}");
+            }
+        }
+
 
         [Then(@"existe o texto '(.*)' no log do job")]
         public void EntaoExisteOTextoNoLogDoJob(string text)

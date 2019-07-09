@@ -73,11 +73,12 @@ namespace SpecFlowHelper.Helpers
                     };
                 }
 
-                p.Start();
-                p.BeginOutputReadLine();
+                p.Start();                
 
                 if (waitForExit)
                 {
+                    p.BeginOutputReadLine();
+
                     while (!textFound)
                     {
                         Thread.Sleep(1000);

@@ -108,14 +108,14 @@ namespace SpecFlowHelper.Steps
         /// Verifica se um texto NÃO existe no corpo da página.
         /// </summary>
         /// <param name="text">O texto a ser verificado.</param>
-        public static void AssertTextNotExists(string text)
+        public static void AssertTextNotExists(string text, int attempts = 10)
         {
             var by = By.CssSelector("body");
 
             StepHelper.Attempt(() =>
             {
                 return IsElementPresent(by) && !Driver.FindElement(by).Text.ToLowerInvariant().Contains(text.ToLowerInvariant());
-            });
+            }, attempts);
 
             Assert.IsFalse(Driver.FindElement(by).Text.ToLowerInvariant().Contains(text.ToLowerInvariant()));
         }
@@ -125,12 +125,12 @@ namespace SpecFlowHelper.Steps
         /// </summary>
         /// <param name="expectedText">O texto esperado.</param>
         /// <param name="by">O seletor do elemento.</param>
-        public static void AssertTextAreEqual(string expectedText, By by)
+        public static void AssertTextAreEqual(string expectedText, By by, int attempts = 10)
         {
             StepHelper.Attempt(() =>
             {
                 return IsElementPresent(by) && expectedText.Equals(Driver.FindElement(by).Text);
-            });
+            }, attempts);
 
             Assert.AreEqual(expectedText, Driver.FindElement(by).Text);
         }
