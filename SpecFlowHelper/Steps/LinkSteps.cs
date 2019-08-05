@@ -1,6 +1,4 @@
-﻿using HelperSharp;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
+﻿using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
@@ -8,16 +6,24 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public class LinkSteps : StepsBase
     {
+        private ILinkStepsStrategy Strategy
+        {
+            get
+            {
+                return StrategyFactory.Create<ILinkStepsStrategy, LinkSteps>(this);
+            }
+        }
+
         [When(@"clico no link '(.*)'")]
         public void QuandoClicoNoLink(string text)
         {
-            StepHelper.Click(By.LinkText(text));
+            Strategy.WhenClickTheLink(text);
         }
 
         [When(@"clico no link que contém o texto '(.*)'")]
         public void QuandoClicoNoLinkQueContemOTexto(string text)
         {
-            StepHelper.Click(By.XPath("//a[contains(., '{0}')]".With(text)));
+            Strategy.WhenClickTheLinkContainsText(text);
         }
     }
 }

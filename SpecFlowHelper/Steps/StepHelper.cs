@@ -534,6 +534,9 @@ namespace SpecFlowHelper.Steps
 
         public static void Log(string message, params object[] args)
         {
+            if (args == null || args.Length == 0)
+                message = message.Replace("{", "{{").Replace("}", "}}");
+
             LogHelper.Log($"{_indentation} {message}", args);
         }
 
@@ -637,7 +640,15 @@ namespace SpecFlowHelper.Steps
                 }
             }
 
-            return command();
+            try
+            {
+                return command();
+            }
+            catch
+            {
+                StepHelper.Log(Driver.PageSource);
+                throw;
+            }
         }
 
         public static void Sleep(int milliseconds, string reason = null)

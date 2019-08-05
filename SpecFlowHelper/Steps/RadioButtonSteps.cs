@@ -10,7 +10,6 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public sealed class RadioButtonSteps : StepsBase
     {
-        #region Properties
         private IRadioButtonStepsStrategy Strategy
         {
             get
@@ -18,9 +17,7 @@ namespace SpecFlowHelper.Steps
                 return StrategyFactory.Create<IRadioButtonStepsStrategy, RadioButtonSteps>(this);
             }
         }
-        #endregion
-
-        #region Methods
+       
         /// <summary>
         /// When check the radio button.
         /// </summary>
@@ -29,7 +26,6 @@ namespace SpecFlowHelper.Steps
         public void WhenCheckTheRadioButton(string radioButton)
         {
             Strategy.WhenCheckTheRadioButton(radioButton);
-        }
-        #endregion
+        }        
     }
 }

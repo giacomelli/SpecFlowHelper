@@ -27,6 +27,8 @@ namespace SpecFlowHelper.Steps.Strategies
             Register<IInfrastructureStepsStrategy, InfrastructureSteps>(new DefaultInfrastructureStepsStrategy());
             Register<IUploadStepsStrategy, UploadSteps>(new DefaultUploadStepsStrategy());
             Register<IToastStepsStrategy, ToastSteps>(new DefaultToastStepsStrategy());
+            Register<ILinkStepsStrategy, LinkSteps>(new DefaultLinkStepsStrategy());
+            Register<ITextboxStepsStrategy, TextboxSteps>(new DefaultTextboxStepsStrategy());
         }
         #endregion
 

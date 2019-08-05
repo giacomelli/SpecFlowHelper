@@ -167,9 +167,13 @@
     <Compile Include="Steps\PageSteps.cs" />
     <Compile Include="Steps\Strategies\AngularJS\AngularJSComboboxStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\AngularJS\AngularJSDatatablesGridStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultTextboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\Default\DefaultLinkStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\Default\DefaultToastStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\Default\DefaultRadioButtonStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\Default\DefaultInfrastructureStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\ITextboxStepsStrategy.cs" />
+    <Compile Include="Steps\Strategies\ILinkStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IToastStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IRadioButtonStepsStrategy.cs" />
     <Compile Include="Steps\Strategies\IInfrastructureStepsStrategy.cs" />

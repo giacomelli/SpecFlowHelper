@@ -1,6 +1,7 @@
 ﻿using HelperSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using SpecFlowHelper.Steps.Strategies;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowHelper.Steps
@@ -8,40 +9,35 @@ namespace SpecFlowHelper.Steps
     [Binding]
     public class TextboxSteps : StepsBase
     {
+        private ITextboxStepsStrategy Strategy
+        {
+            get
+            {
+                return StrategyFactory.Create<ITextboxStepsStrategy, TextboxSteps>(this);
+            }
+        }
         [When(@"digito '(.*)' no campo '(.*)'")]
         public void QuandoDigitoNoCampo(string value, string field)
         {
-            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
-            StepHelper.EnterValue(by, value);
+            Strategy.WhenTypeOnTheField(value, field);
         }
 
         [Then(@"o campo '(.*)' deve ter o valor '(.*)'")]
         public void EntaoOCampoDeveTerOValor(string field, string value)
         {
-            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']".With(field));
-
-            StepHelper.Attempt(() =>
-            {
-                var element = Driver.FindElement(by);
-                var inputValue = element.GetAttribute("value");
-
-                Assert.AreEqual(value, inputValue, inputValue);
-
-                return true;
-            });
+            Strategy.ThenTheFieldShouldHaveTheValue(field, value);
         }
 
-
         [When(@"teclo enter o campo '(.*)'")]
-        public void QuandoTecloEnterOCampo(string ngModel)
+        public void QuandoTecloEnterOCampo(string field)
         {
-            this.Input(ngModel).PressEnter();
+            Strategy.WhenTypeEnterOnTheField(field);
         }
 
         [When(@"teclo enter no elemento '(.*)'")]
-        public void QuandoTecloEnterNoElemento(string ngModel)
+        public void QuandoTecloEnterNoElemento(string field)
         {
-            StepHelper.PressEnter(this.ByNgModel(ngModel));
+            Strategy.WhenTypeEnterOnTheElement(field);
         } 
     }
 }
