@@ -6,9 +6,9 @@ using SpecFlowHelper.Integrations.Environments;
 using TestSharp;
 
 namespace SpecFlowHelper.Configuration
-{
+{    
     public static class AppConfig
-    {
+    {        
         public static BrowserKind BrowserKind = BrowserKind.IE;
         public static string BrowserDriverFolder;
 

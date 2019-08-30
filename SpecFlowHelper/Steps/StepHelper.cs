@@ -21,6 +21,7 @@ namespace SpecFlowHelper.Steps
     public static class StepHelper
     {
         public static event EventHandler AttemptBegin;
+        public static event EventHandler<Exception> ErrorOcurred;
         #region Fields
         private static IJavaScriptExecutor s_jsExecutor;
         #endregion
@@ -34,6 +35,13 @@ namespace SpecFlowHelper.Steps
             Log("Initializing SpecFlowHelper...");
             AppConfig.Validate();
             StartWebServers();
+        }
+
+        internal static void ThrowScenarioTimeout()
+        {
+            var ex = new TimeoutException("ScenarioTimeout reach: {0}".With(AppConfig.ScenarioTimeout));
+            ErrorOcurred?.Invoke(typeof(StepHelper), ex);
+            throw ex;
         }
         #endregion
 
@@ -602,10 +610,7 @@ namespace SpecFlowHelper.Steps
             {
                 try
                 {
-                    if (AttemptBegin != null)
-                    {
-                        AttemptBegin(typeof(StepHelper), EventArgs.Empty);
-                    }
+                    AttemptBegin?.Invoke(typeof(StepHelper), EventArgs.Empty);
 
                     if (command())
                     {
@@ -634,7 +639,7 @@ namespace SpecFlowHelper.Steps
 
                     if (i > AppConfig.LogAttemptsAfter)
                         Log("Attempt {0} of {1} failed with exception: {2}: {3}", i + 1, attempts, ex.Message, command.Method.Name);
-
+                    
                     Sleep(sleep);
                     continue;
                 }
@@ -644,9 +649,9 @@ namespace SpecFlowHelper.Steps
             {
                 return command();
             }
-            catch
+            catch(Exception ex)
             {
-                StepHelper.Log(Driver.PageSource);
+                ErrorOcurred?.Invoke(typeof(StepHelper), ex);
                 throw;
             }
         }

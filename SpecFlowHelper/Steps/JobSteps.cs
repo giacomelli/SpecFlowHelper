@@ -137,13 +137,13 @@ namespace SpecFlowHelper.Steps
         }
 
 
-        private static string GetLogFileName()
+        public static string GetLogFileName()
         {
             var logFileName = Path.Combine(GetRootPath(), AppConfig.JobsLogFileName);
             return logFileName;
         }
 
-        private static string GetExeFileName()
+        public static string GetExeFileName()
         {
             var exeFileName = Path.Combine(GetConfigPath(), "{0}.exe".With(AppConfig.JobsProcessName));
 

@@ -36,8 +36,8 @@ namespace SpecFlowHelper.Steps
         private static void CheckTimeout()
         {
             if (s_scenarioStopwatch.Elapsed >= AppConfig.ScenarioTimeout)
-            {
-                throw new TimeoutException("ScenarioTimeout reach: {0}".With(AppConfig.ScenarioTimeout));
+            {                
+                StepHelper.ThrowScenarioTimeout();
             }
         }
 
