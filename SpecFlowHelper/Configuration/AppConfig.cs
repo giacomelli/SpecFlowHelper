@@ -39,6 +39,8 @@ namespace SpecFlowHelper.Configuration
         public static TimeSpan ScenarioTimeout = TimeSpan.FromMinutes(5);
         public static int LogAttemptsAfter = 4;
 
+        public static bool AutoQuitBrowser = true;
+
         public static void Validate()
         {
             ValidateString("Configuration", Configuration);

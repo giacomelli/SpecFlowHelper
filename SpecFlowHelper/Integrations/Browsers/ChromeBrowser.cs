@@ -11,7 +11,6 @@ namespace SpecFlowHelper.Integrations.Browsers
     /// </summary>
     public class ChromeBrowser : BrowserBase
     {
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="ChromeBrowser"/> class.
         /// </summary>
@@ -19,9 +18,7 @@ namespace SpecFlowHelper.Integrations.Browsers
             : base(BrowserKind.Chrome, "chrome")
         {
         }
-        #endregion
-
-        #region Methods
+        
         /// <summary>
         /// Performs the initialize of the browser.
         /// </summary>
@@ -50,7 +47,6 @@ namespace SpecFlowHelper.Integrations.Browsers
         {
             base.Kill();
             ProcessHelper.KillAll("chromedriver");
-        }
-        #endregion
+        }        
     }
 }

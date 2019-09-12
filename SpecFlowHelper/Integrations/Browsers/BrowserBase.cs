@@ -1,6 +1,7 @@
 ﻿using System;
 using HelperSharp;
 using OpenQA.Selenium;
+using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Logging;
 using TestSharp;
 
@@ -11,13 +12,10 @@ namespace SpecFlowHelper.Integrations.Browsers
     /// </summary>
     public abstract class BrowserBase : IBrowser
     {
-        #region Fields
-        private string m_processName;
-        private By m_currentIframeSelector;
-        private string m_currentIFrameUrl;
-        #endregion
-
-        #region Constructors
+        private string _processName;
+        private By _currentIframeSelector;
+        private string _currentIFrameUrl;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="BrowserBase"/> class.
         /// </summary>
@@ -26,12 +24,10 @@ namespace SpecFlowHelper.Integrations.Browsers
         protected BrowserBase(BrowserKind kind, string processName)
         {
             Kind = kind;
-            m_processName = processName;
+            _processName = processName;
             WaitMilliseconds = 0;
-        }
-        #endregion
+        }        
 
-        #region Properties
         /// <summary>
         /// Gets the kind.
         /// </summary>
@@ -50,10 +46,8 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// <summary>
         /// Gets the wait milliseconds used in steps for this specific browser.
         /// </summary>
-        public int WaitMilliseconds { get; protected set; }
-        #endregion
-
-        #region Methods
+        public int WaitMilliseconds { get; protected set; }        
+        
         /// <summary>
         /// Initializes the browser.
         /// </summary>
@@ -70,7 +64,8 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// </summary>
         public virtual void Kill()
         {
-            ProcessHelper.KillAll(m_processName);
+            if(AppConfig.AutoQuitBrowser)
+                ProcessHelper.KillAll(_processName);
         }
 
         /// <summary>
@@ -88,8 +83,8 @@ namespace SpecFlowHelper.Integrations.Browsers
             }
 
             Driver = iframeDriver;
-            m_currentIframeSelector = by;
-            m_currentIFrameUrl = Driver.Url;
+            _currentIframeSelector = by;
+            _currentIFrameUrl = Driver.Url;
             LogHelper.Log("NavigateToIframe: from url {0} to {1}", previousUrl, Driver.Url);
             ExecutionEvents.RaiseIframeNavigated();
         }
@@ -99,9 +94,9 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// </summary>
         public void Renavigate()
         {
-            if (m_currentIframeSelector != null && !Driver.Url.Equals(m_currentIFrameUrl))
+            if (_currentIframeSelector != null && !Driver.Url.Equals(_currentIFrameUrl))
             {
-                NavigateToIframe(m_currentIframeSelector);
+                NavigateToIframe(_currentIframeSelector);
             }
         }
 
@@ -113,8 +108,8 @@ namespace SpecFlowHelper.Integrations.Browsers
         {
             var previousUrl = Driver.Url;
             Driver = Driver.SwitchTo().DefaultContent();
-            m_currentIframeSelector = null;
-            m_currentIFrameUrl = null;
+            _currentIframeSelector = null;
+            _currentIFrameUrl = null;
 
             LogHelper.Log("NavigateBackToMainWindow: from url {0} to {1}", previousUrl, Driver.Url);
         }
@@ -125,7 +120,6 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// <param name="driverFolder">The driver folder.</param>
         /// <param name="proxy">The proxy.</param>
         /// <returns>The web driver.</returns>
-        protected abstract IWebDriver PerformInitialize(string driverFolder, Proxy proxy);
-        #endregion
+        protected abstract IWebDriver PerformInitialize(string driverFolder, Proxy proxy);        
     }
 }
