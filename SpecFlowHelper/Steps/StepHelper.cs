@@ -81,7 +81,7 @@ namespace SpecFlowHelper.Steps
 
             foreach (var webProject in AppConfig.WebProjects)
             {
-                if (webProject.BaseUrl.Contains("://localhost"))
+                if (webProject.BaseUrl.Contains("://localhost") && !String.IsNullOrEmpty(webProject.FolderName))
                 {
                     Log($"Starting {webProject.FolderName} ({webProject.BaseUrl})...");
                     WebHostHelper.StartAndWaitForResponse(webProject.FolderName, webProject.Port, webProject.ExpectedStatusCode);

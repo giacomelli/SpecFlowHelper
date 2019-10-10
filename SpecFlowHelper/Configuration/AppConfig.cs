@@ -48,9 +48,11 @@ namespace SpecFlowHelper.Configuration
 
             foreach(var webProject in WebProjects)
             {
-                ValidateString(nameof(WebProjectConfig.FolderName), webProject.FolderName);
-                ValidateProjectFolder(nameof(WebProjectConfig.FolderName), webProject.FolderName);
-                ValidateInt("Port", webProject.Port);
+                if (!string.IsNullOrEmpty(webProject.FolderName))
+                {
+                    ValidateProjectFolder(nameof(WebProjectConfig.FolderName), webProject.FolderName);
+                    ValidateInt("Port", webProject.Port);
+                }
             }
 
             if (JobsEnabled)

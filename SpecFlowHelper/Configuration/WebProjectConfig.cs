@@ -18,7 +18,12 @@ namespace SpecFlowHelper.Configuration
 
             BaseUrl = $"http://localhost:{port}";
         }
-        
+
+        public WebProjectConfig(WebProjectKind kind)
+        {
+            Kind = kind;
+        }
+
         public WebProjectKind Kind { get; private set; }
 
         public string FolderName { get; private set; }
