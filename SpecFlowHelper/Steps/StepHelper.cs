@@ -193,11 +193,39 @@ namespace SpecFlowHelper.Steps
         /// </summary>
         /// <param name="by">O seletor do elemento.</param>
         /// <returns></returns>
+
+        private static IWebElement _lastFoundElement;
+        private static string _lastFoundElementStyle;
+
         private static IWebElement FindElement(By by)
         {
             try
             {
-                return Driver.FindElements(by).First(e => e.Displayed);
+                var currentFoundElement = Driver.FindElements(by).First(e => e.Displayed);
+
+                if (currentFoundElement != _lastFoundElement)
+                {
+                    // Change the last found element back to the original style.
+                    if (_lastFoundElement != null)
+                    {
+                        try
+                        {
+                            RunJS("arguments[0].setAttribute('style', arguments[1]);", _lastFoundElement, _lastFoundElementStyle);
+                        }
+                        catch (StaleElementReferenceException)
+                        {
+                            // Element is not present in page anymore.
+                        }
+                    }
+
+                    // Highlight the current found element, changing its style.
+                    _lastFoundElementStyle = RunJS("arguments[0].getAttribute('style');", currentFoundElement) as string;
+                    RunJS("arguments[0].setAttribute('style','background: yellow; border: 2px solid red;');", currentFoundElement);
+
+                    _lastFoundElement = currentFoundElement;
+                }
+
+                return currentFoundElement;
             }
             catch (InvalidOperationException ex)
             {
@@ -378,14 +406,14 @@ namespace SpecFlowHelper.Steps
         /// <param name="itemText">O texto do item a ser selecionado.</param>
         public static void Select2DropdownItem(By by, string itemText)
         {
-            var select2 = Driver.FindElement(by);
+            var select2 = FindElement(by);
             select2.Click();
 
             string subContainerClass = "#select2-drop:not([style*='display: none'])";
-            var searchBox = Driver.FindElement(By.CssSelector(subContainerClass + " .select2-input"));
+            var searchBox = FindElement(By.CssSelector(subContainerClass + " .select2-input"));
             searchBox.SendKeys(itemText);
 
-            var selectedItem = Driver.FindElements(By.CssSelector(subContainerClass + " .select2-results li.select2-result-selectable")).First();
+            var selectedItem = FindElement(By.CssSelector(subContainerClass + " .select2-results li.select2-result-selectable"));
             selectedItem.Click();
         }
 
@@ -406,7 +434,7 @@ namespace SpecFlowHelper.Steps
                 throw new InvalidOperationException("Element is not present: " + by);
             }
 
-            return Driver.FindElement(by);
+            return FindElement(by);
         }
 
         public static void WaitElementIsNotVisible(By by, int attempts)
@@ -496,7 +524,7 @@ namespace SpecFlowHelper.Steps
             {
                 WaitElementIsPresent(by, 1);
 
-                var element = Driver.FindElement(by);
+                var element = FindElement(by);
 
                 if (!isInputFile)
                 {
@@ -516,7 +544,7 @@ namespace SpecFlowHelper.Steps
         public static void Clear(By by)
         {
             WaitElementIsPresent(by);
-            var element = Driver.FindElement(by);
+            var element = FindElement(by);
             element.Clear();
         }
 
@@ -535,7 +563,7 @@ namespace SpecFlowHelper.Steps
         public static void PressTab(By by)
         {
             StepHelper.WaitElementIsPresent(by);
-            var element = Driver.FindElement(by);
+            var element = FindElement(by);
 
             element.SendKeys(Keys.Tab);
         }
@@ -581,7 +609,7 @@ namespace SpecFlowHelper.Steps
 
             Attempt(() =>
             {
-                text = Driver.FindElement(by).Text;
+                text = FindElement(by).Text;
                 return true;
             }, attempts);
 

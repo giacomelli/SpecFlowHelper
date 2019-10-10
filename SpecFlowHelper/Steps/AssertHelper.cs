@@ -93,7 +93,7 @@ namespace SpecFlowHelper.Steps
         /// </summary>
         /// <param name="text">O texto a ser verificado.</param>
         public static void AssertLinkExists(string text)
-        {
+        {            
             var by = By.LinkText(text);
 
             StepHelper.Attempt(() =>
