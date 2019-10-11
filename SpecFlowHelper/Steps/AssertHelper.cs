@@ -129,10 +129,10 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                return IsElementPresent(by) && expectedText.Equals(Driver.FindElement(by).Text);
+                return IsElementPresent(by) && expectedText.Equals(StepHelper.FindElement(by).Text);
             }, attempts);
 
-            Assert.AreEqual(expectedText, Driver.FindElement(by).Text);
+            Assert.AreEqual(expectedText, StepHelper.FindElement(by).Text);
         }
 
         /// <summary>
@@ -144,10 +144,10 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                return IsElementPresent(by) && !expectedText.Equals(Driver.FindElement(by).Text);
+                return IsElementPresent(by) && !expectedText.Equals(StepHelper.FindElement(by).Text);
             });
 
-            Assert.AreNotEqual(expectedText, Driver.FindElement(by).Text);
+            Assert.AreNotEqual(expectedText, StepHelper.FindElement(by).Text);
         }
 
         /// <summary>
@@ -159,10 +159,10 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                return IsElementPresent(by) && expectedValue.Trim().Equals(Driver.FindElement(by).GetAttribute("value").Trim());
+                return IsElementPresent(by) && expectedValue.Trim().Equals(StepHelper.FindElement(by).GetAttribute("value").Trim());
             });
 
-            Assert.AreEqual(expectedValue, Driver.FindElement(by).GetAttribute("value").Trim());
+            Assert.AreEqual(expectedValue, StepHelper.FindElement(by).GetAttribute("value").Trim());
         }
 
         public static void AssertAllTextsAreEqual(string expectedText, By by)
@@ -173,6 +173,7 @@ namespace SpecFlowHelper.Steps
 
                 foreach (var e in elements)
                 {
+                    ElementHelper.Hightlight(e);
                     Assert.AreEqual(expectedText, e.Text);
                 }
 
@@ -188,6 +189,8 @@ namespace SpecFlowHelper.Steps
 
                 foreach (var e in elements)
                 {
+                    ElementHelper.Hightlight(e);
+
                     if (expectedText.Equals(e.Text))
                     {
                         return true;
@@ -206,10 +209,10 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                return IsElementPresent(by) && !String.IsNullOrWhiteSpace(Driver.FindElement(by).GetAttribute("value").Trim());
+                return IsElementPresent(by) && !String.IsNullOrWhiteSpace(StepHelper.FindElement(by).GetAttribute("value").Trim());
             });
 
-            Assert.IsFalse(String.IsNullOrWhiteSpace(Driver.FindElement(by).GetAttribute("value").Trim()));
+            Assert.IsFalse(String.IsNullOrWhiteSpace(StepHelper.FindElement(by).GetAttribute("value").Trim()));
         }
 
         /// <summary>
@@ -221,7 +224,7 @@ namespace SpecFlowHelper.Steps
         {
             StepHelper.Attempt(() =>
             {
-                Assert.AreEqual(expectedSelectedText, new SelectElement(Driver.FindElement(by)).SelectedOption.Text);
+                Assert.AreEqual(expectedSelectedText, new SelectElement(StepHelper.FindElement(by)).SelectedOption.Text);
                 return true;
             });
         }
@@ -236,6 +239,7 @@ namespace SpecFlowHelper.Steps
 
             foreach (var element in Driver.FindElements(by))
             {
+                ElementHelper.Hightlight(element);
                 Assert.IsTrue(element.Enabled, by + " should be enabled.");
             }
         }
@@ -250,7 +254,8 @@ namespace SpecFlowHelper.Steps
 
             foreach (var element in Driver.FindElements(by))
             {
-                 Assert.IsFalse(element.Enabled, by + " should be disabled.");
+                ElementHelper.Hightlight(element);
+                Assert.IsFalse(element.Enabled, by + " should be disabled.");
             }
         }
 
@@ -264,6 +269,7 @@ namespace SpecFlowHelper.Steps
 
             foreach (var element in Driver.FindElements(by))
             {
+                ElementHelper.Hightlight(element);
                 Assert.IsTrue(element.Selected, by + " should be checked.");
             }
         }
@@ -278,6 +284,7 @@ namespace SpecFlowHelper.Steps
 
             foreach (var element in Driver.FindElements(by))
             {
+                ElementHelper.Hightlight(element);
                 Assert.IsFalse(element.Selected, by + " should be not checked.");
             }
         }

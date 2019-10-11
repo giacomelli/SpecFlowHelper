@@ -192,38 +192,14 @@ namespace SpecFlowHelper.Steps
         /// </remarks>
         /// </summary>
         /// <param name="by">O seletor do elemento.</param>
-        /// <returns></returns>
-
-        private static IWebElement _lastFoundElement;
-        private static string _lastFoundElementStyle;
-
-        private static IWebElement FindElement(By by)
+        /// <returns></returns>      
+        public static IWebElement FindElement(By by)
         {
             try
             {
                 var currentFoundElement = Driver.FindElements(by).First(e => e.Displayed);
 
-                if (currentFoundElement != _lastFoundElement)
-                {
-                    // Change the last found element back to the original style.
-                    if (_lastFoundElement != null)
-                    {
-                        try
-                        {
-                            RunJS("arguments[0].setAttribute('style', arguments[1]);", _lastFoundElement, _lastFoundElementStyle);
-                        }
-                        catch (StaleElementReferenceException)
-                        {
-                            // Element is not present in page anymore.
-                        }
-                    }
-
-                    // Highlight the current found element, changing its style.
-                    _lastFoundElementStyle = RunJS("arguments[0].getAttribute('style');", currentFoundElement) as string;
-                    RunJS("arguments[0].setAttribute('style','background: yellow; border: 2px solid red;');", currentFoundElement);
-
-                    _lastFoundElement = currentFoundElement;
-                }
+                ElementHelper.Hightlight(currentFoundElement);
 
                 return currentFoundElement;
             }
@@ -243,7 +219,10 @@ namespace SpecFlowHelper.Steps
         {
             try
             {
-                return Driver.FindElement(by) != null;
+                var element = Driver.FindElement(by);
+                ElementHelper.Hightlight(element);
+
+                return element != null;
             }
             catch
             {

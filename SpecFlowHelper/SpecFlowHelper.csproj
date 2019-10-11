@@ -153,6 +153,8 @@
     <Compile Include="Logging\Log4netLogStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AssertHelper.cs" />
+    <Compile Include="Steps\CIHelper.cs" />
+    <Compile Include="Steps\ElementHelper.cs" />
     <Compile Include="Steps\RadioButtonSteps.cs" />
     <Compile Include="Steps\ConfigSteps.cs" />
     <Compile Include="Steps\ComboboxSteps.cs" />
