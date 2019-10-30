@@ -63,7 +63,7 @@ namespace SpecFlowHelper.Steps.Strategies.AngularJS
 
         public virtual void WhenSelectInTheCombobox(string text, string field)
         {
-            var by = By.XPath("//select[@ng-model='{0}']".With(field));
+            var by = By.XPath("//select[@ng-model='{0}']|//select[@formcontrolname='{0}']".With(field));
 
             StepHelper.SelectDropdownItem(by, text);
         }
