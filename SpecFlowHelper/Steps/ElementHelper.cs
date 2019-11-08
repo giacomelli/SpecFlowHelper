@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SpecFlowHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace SpecFlowHelper.Steps
         /// <param name="element">The element.</param>
         public static void Hightlight(IWebElement element)
         {
-            if (element != null 
+            if (AppConfig.HighlightElement
+             && element != null 
              && !CIHelper.IsCI 
              && element != _lastFoundElement)
             {

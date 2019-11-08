@@ -41,6 +41,8 @@ namespace SpecFlowHelper.Configuration
 
         public static bool AutoQuitBrowser = true;
 
+        public static bool HighlightElement = true;
+
         public static void Validate()
         {
             ValidateString("Configuration", Configuration);
