@@ -18,6 +18,7 @@ namespace SpecFlowHelper.Steps.Localization
 
         // RadioButton.
         public const string WhenCheckTheRadioButton = "marco o radiobutton '(.*)'";
+        public const string ThenTheRadioButtonShouldBeReadOnly = "o radiobutton '(.*)' deve estar read-only";
 
 
         // Combobox.

@@ -11,7 +11,7 @@ namespace SpecFlowHelper.Steps.Strategies.Default
     {
         public virtual void ThenTheFieldShouldHaveTheValue(string field, string value)
         {
-            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']|//input[@formcontrolname='{0}']|//textarea[@formcontrolname='{0}']".With(field));
+            var by = GetBy(field);
 
             StepHelper.Attempt(() =>
             {
@@ -36,8 +36,10 @@ namespace SpecFlowHelper.Steps.Strategies.Default
 
         public virtual void WhenTypeOnTheField(string value, string field)
         {
-            var by = By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']|//input[@formcontrolname='{0}']|//textarea[@formcontrolname='{0}']".With(field));
+            var by = GetBy(field);
             StepHelper.EnterValue(by, value);
         }
+
+        By GetBy(string field) => By.XPath("//input[@id='{0}']|//input[@name='{0}']|//textarea[@id='{0}']|//textarea[@name='{0}']|//input[@ng-model='{0}']|//textarea[@ng-model='{0}']|//input[@formcontrolname='{0}']|//textarea[@formcontrolname='{0}']|//input[@data-path='{0}']|//textarea[@data-path='{0}']".With(field));        
     }
 }

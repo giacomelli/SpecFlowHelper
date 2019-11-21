@@ -26,6 +26,16 @@ namespace SpecFlowHelper.Steps
         public void WhenCheckTheRadioButton(string radioButton)
         {
             Strategy.WhenCheckTheRadioButton(radioButton);
-        }        
+        }
+
+        /// <summary>
+        /// Then the radio button should be read only.
+        /// </summary>
+        /// <param name="radiobutton">The radio button.</param>
+        [Then(Locale.ThenTheRadioButtonShouldBeReadOnly)]
+        public void ThenTheRadioButtonShouldBeReadOnly(string radiobutton)
+        {
+            Strategy.ThenTheRadioButtonShouldBeReadOnly(radiobutton);
+        }
     }
 }

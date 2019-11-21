@@ -5,6 +5,7 @@
     /// </summary>
     public interface IRadioButtonStepsStrategy : IStepsStrategy<RadioButtonSteps>
     {
-        void WhenCheckTheRadioButton(string radioButton);        
+        void WhenCheckTheRadioButton(string radioButton);
+        void ThenTheRadioButtonShouldBeReadOnly(string radiobutton);
     }
 }
