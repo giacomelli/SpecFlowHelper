@@ -111,6 +111,12 @@ namespace SpecFlowHelper.Steps
             
             StepHelper.Log($"SCENARIO END: {info.Title}");
             StepHelper.Log($"STATUS: {status}");
+
+            if(status == "error")
+            {
+                StepHelper.RaiseErrorOcurred(new InvalidOperationException("Scenario ended with error"));
+            }
+
             StepHelper.Log($"TAGS: {String.Join(", ", FeatureContext.Current.FeatureInfo.Tags)}");
             StepHelper.Log($"ELAPSED: {s_scenarioStopwatch.Elapsed.TotalSeconds} seconds");            
 

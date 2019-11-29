@@ -43,6 +43,11 @@ namespace SpecFlowHelper.Steps
             ErrorOcurred?.Invoke(typeof(StepHelper), ex);
             throw ex;
         }
+
+        internal static void RaiseErrorOcurred(Exception ex)
+        {
+            ErrorOcurred?.Invoke(typeof(StepHelper), ex);            
+        }
         #endregion
 
         #region Properties
