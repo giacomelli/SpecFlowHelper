@@ -97,6 +97,7 @@ namespace SpecFlowHelper.Steps
             StepHelper.LogSeparator();
             StepHelper.Log($"SCENARIO BEGIN: {info.Title}");
             StepHelper.Log($"TAGS: {String.Join(", ", FeatureContext.Current.FeatureInfo.Tags)}");
+            StepHelper.RaiseScenarioBegin();
         }
 
         [AfterScenario]
@@ -108,15 +109,11 @@ namespace SpecFlowHelper.Steps
             var info = scenario.ScenarioInfo;
             var status = scenario.TestError == null ? "success" : "error {0}{1}".With(Environment.NewLine, scenario.TestError.Message);
 
-            
+            if(scenario.TestError != null)
+                StepHelper.RaiseErrorOcurred(new InvalidOperationException("Scenario ended with error"));
+
             StepHelper.Log($"SCENARIO END: {info.Title}");
             StepHelper.Log($"STATUS: {status}");
-
-            if(status == "error")
-            {
-                StepHelper.RaiseErrorOcurred(new InvalidOperationException("Scenario ended with error"));
-            }
-
             StepHelper.Log($"TAGS: {String.Join(", ", FeatureContext.Current.FeatureInfo.Tags)}");
             StepHelper.Log($"ELAPSED: {s_scenarioStopwatch.Elapsed.TotalSeconds} seconds");            
 

@@ -20,6 +20,7 @@ namespace SpecFlowHelper.Steps
     /// </summary>
     public static class StepHelper
     {
+        public static event EventHandler ScenarioBegin;
         public static event EventHandler AttemptBegin;
         public static event EventHandler<Exception> ErrorOcurred;
         #region Fields
@@ -40,13 +41,25 @@ namespace SpecFlowHelper.Steps
         internal static void ThrowScenarioTimeout()
         {
             var ex = new TimeoutException("ScenarioTimeout reach: {0}".With(AppConfig.ScenarioTimeout));
-            ErrorOcurred?.Invoke(typeof(StepHelper), ex);
+            RaiseErrorOcurred(ex);
             throw ex;
+        }
+
+        internal static void RaiseScenarioBegin()
+        {
+            ScenarioBegin?.Invoke(typeof(StepHelper), EventArgs.Empty);
         }
 
         internal static void RaiseErrorOcurred(Exception ex)
         {
-            ErrorOcurred?.Invoke(typeof(StepHelper), ex);            
+            try
+            {
+                ErrorOcurred?.Invoke(typeof(StepHelper), ex);
+            }
+            catch(Exception newEx)
+            {
+                StepHelper.Log($"Error while raising 'ErrorOcurred'. Please, check your code: {newEx.Message}");
+            }
         }
         #endregion
 
@@ -96,7 +109,7 @@ namespace SpecFlowHelper.Steps
                     Log($"Using {webProject.FolderName} published on {webProject.BaseUrl}...");
                 }
             }
-        }
+        }       
 
         public static void StopWebServers()
         {
@@ -657,15 +670,7 @@ namespace SpecFlowHelper.Steps
                 }
             }
 
-            try
-            {
-                return command();
-            }
-            catch(Exception ex)
-            {
-                ErrorOcurred?.Invoke(typeof(StepHelper), ex);
-                throw;
-            }
+            return command();           
         }
 
         public static void Sleep(int milliseconds, string reason = null)

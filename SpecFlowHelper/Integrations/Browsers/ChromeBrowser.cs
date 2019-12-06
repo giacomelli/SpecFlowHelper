@@ -39,6 +39,7 @@ namespace SpecFlowHelper.Integrations.Browsers
             options.AddArguments("chrome.switches", "--disable-infobars --start-maximized --no-sandbox");
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
+            options.SetLoggingPreference(LogType.Browser, LogLevel.All);
 
             return new ChromeDriver(driverFolder, options, TimeSpan.FromMinutes(3));
         }
