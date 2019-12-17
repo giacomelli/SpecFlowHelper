@@ -316,7 +316,7 @@ namespace SpecFlowHelper.Steps
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("is not clickable at point"))
+                if (ex.Message.Contains("Element is not clickable at point"))
                 {
                     StepHelper.MoveToElement(by);
 
