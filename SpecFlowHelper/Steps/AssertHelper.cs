@@ -322,6 +322,17 @@ namespace SpecFlowHelper.Steps
             });
         }
 
+        /// <summary>
+        /// Attempts the specified command with assert.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="attempts">The attempts.</param>
+        /// <param name="sleep">The sleep.</param>
+        public static void Attempt(Func<bool> command, int attempts = 10, int sleep = 1000)
+        {
+            Assert.IsTrue(StepHelper.Attempt(command, attempts, sleep), $"{command.Method.Name} failed");
+        }
+
         private static bool IsElementPresent(By by)
         {
             return StepHelper.IsElementPresent(by);
