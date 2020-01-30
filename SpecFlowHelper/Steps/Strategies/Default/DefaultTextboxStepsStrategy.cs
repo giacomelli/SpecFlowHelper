@@ -13,14 +13,12 @@ namespace SpecFlowHelper.Steps.Strategies.Default
         {
             var by = GetBy(field);
 
-            StepHelper.Attempt(() =>
+            AssertHelper.Attempt(() =>
             {
                 var element = this.CurrentSteps.Driver.FindElement(by);
                 var inputValue = element.GetAttribute("value");
 
-                Assert.AreEqual(value, inputValue, inputValue);
-
-                return true;
+                return value == inputValue;
             });
         }
 
