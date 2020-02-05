@@ -16,6 +16,12 @@ namespace SpecFlowHelper.Steps
         [When(@"executo o job '(.*)' e aguardo pelo texto '(.*)' no log")]
         public void QuandoExecutoOJob(string name, string text)
         {
+            QuandoExecutoOJobSegundos(name, text, Convert.ToInt32(AppConfig.ScenarioTimeout.TotalSeconds));
+        }
+
+        [When(@"executo o job '(.*)' e aguardo pelo texto '(.*)' no log durante '(.*)' segundos")]
+        public void QuandoExecutoOJobSegundos(string name, string text, int segundos)
+        {
             var exeFileName = GetExeFileName();
             var logFileName = GetLogFileName();
 
@@ -39,7 +45,7 @@ namespace SpecFlowHelper.Steps
             else
                 ProcessHelper.Run(exeFileName, "-job:{0}".With(name), false);
 
-            EntaoExisteOTextoNoLogDoJob(text);
+            EntaoExisteOTextoNoLogDoJobSegundos(text, segundos);
             QuandoEncerroOJob(name);
         }
 
@@ -51,6 +57,12 @@ namespace SpecFlowHelper.Steps
 
         [When(@"executo o job e aguardo pelo texto '(.*)' na saída")]
         public void QuandoExecutoOJobEAguardoPeloTextoNaSaida(string text)
+        {
+            QuandoExecutoOJobEAguardoPeloTextoNaSaida(text, Convert.ToInt32(AppConfig.ScenarioTimeout.TotalSeconds));
+        }
+
+        [When(@"executo o job e aguardo pelo texto '(.*)' na saída por '(.*)' segundos")]
+        public void QuandoExecutoOJobEAguardoPeloTextoNaSaida(string text, int timeoutSeconds)
         {
             if (AppConfig.JobsEnabled)
             {
@@ -65,7 +77,7 @@ namespace SpecFlowHelper.Steps
                 StepHelper.Wait("Waiting job....");
                 StepHelper.Log("Running job");
 
-                ProcessHelperEx.Run(exeFileName, string.Empty, text);
+                ProcessHelperEx.Run(exeFileName, string.Empty, text, timeoutSeconds);
 
                 QuandoEncerroOJob(null);
             }
@@ -99,15 +111,20 @@ namespace SpecFlowHelper.Steps
             }
         }
 
-
         [Then(@"existe o texto '(.*)' no log do job")]
         public void EntaoExisteOTextoNoLogDoJob(string text)
+        {
+            EntaoExisteOTextoNoLogDoJobSegundos(text, Convert.ToInt32(AppConfig.ScenarioTimeout.TotalSeconds));
+        }
+
+        [Then(@"existe o texto '(.*)' no log do job e aguardo por '(.*)' segundos")]
+        public void EntaoExisteOTextoNoLogDoJobSegundos(string text, int segundos)
         {
             StepHelper.Log("Waiting for text '{0}' on job's log file", text); ;
 
             var logFileName = GetLogFileName();
 
-            FileHelper.WaitForFileContentContains(logFileName, text, Convert.ToInt32(AppConfig.ScenarioTimeout.TotalSeconds));
+            FileHelper.WaitForFileContentContains(logFileName, text, segundos);
             ProcessHelper.KillAll(AppConfig.JobsProcessName);
 
             FileAssert.ContainsContent(text, logFileName);

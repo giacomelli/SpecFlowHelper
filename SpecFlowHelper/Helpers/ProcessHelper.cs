@@ -24,7 +24,7 @@ namespace SpecFlowHelper.Helpers
         /// <param name="arguments">Argumentos para o processo.</param>
         /// <param name="waitForExit">Se deve aguardar pelo fim da execução do processo.</param>
         /// <returns>O conteúdo da saída do processo.</returns>		
-        public static string Run(string exePath, string arguments = "", string waitForOutputText = "")
+        public static string Run(string exePath, string arguments = "", string waitForOutputText = "", int timeoutSeconds = 60)
         {
             string output = String.Empty;
             using (var p = new Process())
@@ -79,9 +79,10 @@ namespace SpecFlowHelper.Helpers
                 {
                     p.BeginOutputReadLine();
 
-                    while (!textFound)
+                    while (!textFound && timeoutSeconds > 0)
                     {
                         Thread.Sleep(1000);
+                        timeoutSeconds--;
                     }
 
                     p.CancelOutputRead();
