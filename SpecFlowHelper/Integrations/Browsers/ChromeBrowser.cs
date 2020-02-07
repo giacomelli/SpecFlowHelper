@@ -10,7 +10,7 @@ namespace SpecFlowHelper.Integrations.Browsers
     /// The default implementation to Chrome browser.
     /// </summary>
     public class ChromeBrowser : BrowserBase
-    {
+    {        
         /// <summary>
         /// Initializes a new instance of the <see cref="ChromeBrowser"/> class.
         /// </summary>
@@ -18,7 +18,12 @@ namespace SpecFlowHelper.Integrations.Browsers
             : base(BrowserKind.Chrome, "chrome")
         {
         }
-        
+
+        /// <summary>
+        /// Gets or sets the switches (--disable-infobars --start-maximized --no-sandbox)
+        /// </summary>
+        public static string Switches { get; set; } = "--disable-infobars --start-maximized --no-sandbox";
+
         /// <summary>
         /// Performs the initialize of the browser.
         /// </summary>
@@ -36,7 +41,7 @@ namespace SpecFlowHelper.Integrations.Browsers
                 options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
             }
 
-            options.AddArguments("chrome.switches", "--disable-infobars --start-maximized --no-sandbox");
+            options.AddArguments("chrome.switches", Switches);
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
             options.SetLoggingPreference(LogType.Browser, LogLevel.All);
