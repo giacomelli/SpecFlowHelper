@@ -5,6 +5,7 @@ using HelperSharp;
 using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Integrations;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Bindings;
 
 namespace SpecFlowHelper.Steps
 {
@@ -17,6 +18,7 @@ namespace SpecFlowHelper.Steps
         private static Stopwatch s_featureStopwatch = new Stopwatch();
         private static Stopwatch s_scenarioStopwatch = new Stopwatch();
         private static bool s_shouldAbort;
+        private static StepDefinitionType? _previousStepType;
 
         static StepHooks ()
         {
@@ -30,7 +32,17 @@ namespace SpecFlowHelper.Steps
         public static void BeforeStep()
         {
             CheckTimeout();
-            StepHelper.Log(ScenarioStepContext.Current.StepInfo.Text);
+            
+            var step = ScenarioStepContext.Current.StepInfo;
+            var currentStepType = step.StepDefinitionType;
+
+            var stepTypeTranslated = _previousStepType.HasValue && _previousStepType.Value == currentStepType
+                ? "E"
+                : Translate(currentStepType);
+
+            _previousStepType = currentStepType;
+
+            StepHelper.Log($"{stepTypeTranslated} {step.Text}");
         }
 
         private static void CheckTimeout()
@@ -88,6 +100,7 @@ namespace SpecFlowHelper.Steps
         [BeforeScenario]
         public static void RunBeforeScenario()
         {
+            _previousStepType = null;
             s_scenarioStopwatch.Restart();
             ValidateState();
             var info = ScenarioContext.Current.ScenarioInfo;
@@ -139,11 +152,27 @@ namespace SpecFlowHelper.Steps
             s_shouldAbort = true;
         }
 
+
         private static void ValidateState()
         {
             if (s_shouldAbort || (s_scenarioErrorCount > 0 && RuntimeEnvironment.Current.ShouldAbortOnFirstTestError))
             {
                 throw new InvalidOperationException("Aborting tests because a previous test as failed.");
+            }
+        }
+
+        private static string Translate(StepDefinitionType stepType)
+        {
+            switch(stepType)
+            {
+                case StepDefinitionType.Given:
+                    return "Dado";
+
+                case StepDefinitionType.Then:
+                    return "Então";
+
+                default:
+                    return "Quando";
             }
         }
     }
