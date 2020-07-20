@@ -7,7 +7,7 @@ namespace SpecFlowHelper.Integrations
     /// </summary>
     public static class ExecutionEvents
     {
-        #region Eventts
+        #region Events
         /// <summary>
         /// Occurs when browser is initializing.
         /// </summary>

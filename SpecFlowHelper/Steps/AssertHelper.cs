@@ -280,13 +280,18 @@ namespace SpecFlowHelper.Steps
         /// <param name="by">O seletor do elemento.</param>
         public static void AssertIsNotChecked(By by)
         {
-            StepHelper.WaitElementsArePresent(by, 1);
-
-            foreach (var element in Driver.FindElements(by))
+            AssertHelper.Attempt(() =>
             {
-                ElementHelper.Hightlight(element);
-                Assert.IsFalse(element.Selected, by + " should be not checked.");
-            }
+                StepHelper.WaitElementsArePresent(by, 1);
+
+                foreach (var element in Driver.FindElements(by))
+                {
+                    ElementHelper.Hightlight(element);
+                    Assert.IsFalse(element.Selected, by + " should be not checked.");
+                }
+
+                return true;
+            });
         }
 
         /// <summary>
