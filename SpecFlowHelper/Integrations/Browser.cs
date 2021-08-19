@@ -62,7 +62,7 @@ namespace SpecFlowHelper.Integrations
 
                 LogHelper.Log("{0} selected.", kind);
                 ExecutionEvents.RaiseBrowserInitializing();
-
+                ExecutionEvents.RaiseProxyInitializing(proxy);
                 Current.Initialize(driversFolder, proxy);
                 LogHelper.Log("Browser initialized.");
                 s_initialized = true;

@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 
 namespace SpecFlowHelper.Integrations
 {
@@ -8,6 +9,11 @@ namespace SpecFlowHelper.Integrations
     public static class ExecutionEvents
     {
         #region Events
+        /// <summary>
+        /// Occurs when proxy is initializing.
+        /// </summary>
+        public static event EventHandler<Proxy> ProxyInitializing;
+
         /// <summary>
         /// Occurs when browser is initializing.
         /// </summary>
@@ -62,15 +68,17 @@ namespace SpecFlowHelper.Integrations
         /// Occurs when URL is opened.
         /// </summary>
         public static event EventHandler<UrlOpenedEventArgs> UrlOpened;
+
+        internal static void RaiseProxyInitializing(Proxy proxy)
+        {
+            ProxyInitializing?.Invoke(typeof(ExecutionEvents), proxy);
+        }
         #endregion
 
         #region Methods
         internal static void RaiseBrowserInitializing()
         {
-            if (BrowserInitializing != null)
-            {
-                BrowserInitializing(typeof(ExecutionEvents), EventArgs.Empty);
-            }
+            BrowserInitializing?.Invoke(typeof(ExecutionEvents), EventArgs.Empty);
         }
 
         internal static void RaiseBrowserInitialized()

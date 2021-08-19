@@ -22,7 +22,7 @@ namespace SpecFlowHelper.Integrations.Browsers
         /// <summary>
         /// Gets or sets the switches (--disable-infobars --start-maximized --no-sandbox)
         /// </summary>
-        public static string Switches { get; set; } = "--disable-infobars --start-maximized --no-sandbox";
+        public static string Switches { get; set; } = "--disable-infobars --start-maximized --no-sandbox --ignore-certificate-errors";
 
         /// <summary>
         /// Performs the initialize of the browser.
@@ -38,10 +38,10 @@ namespace SpecFlowHelper.Integrations.Browsers
 
             if (!string.IsNullOrWhiteSpace(proxy.HttpProxy))
             {
-                options.AddAdditionalCapability(CapabilityType.Proxy, proxy);
+                options.Proxy = proxy;
             }
 
-            options.AddArguments("chrome.switches", Switches);
+            options.AddArguments("chrome.switches", Switches);            
             options.AddUserProfilePreference("credentials_enable_service", false);
             options.AddUserProfilePreference("profile.password_manager_enabled", false);
             options.SetLoggingPreference(LogType.Browser, LogLevel.All);
