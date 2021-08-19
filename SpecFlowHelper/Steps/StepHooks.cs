@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using HelperSharp;
+using NUnit.Framework;
 using SpecFlowHelper.Configuration;
 using SpecFlowHelper.Integrations;
 using TechTalk.SpecFlow;
@@ -122,8 +123,17 @@ namespace SpecFlowHelper.Steps
             var info = scenario.ScenarioInfo;
             var status = scenario.TestError == null ? "success" : "error {0}{1}".With(Environment.NewLine, scenario.TestError.Message);
 
-            if(scenario.TestError != null)
+            if (scenario.TestError == null)
+            {
+                if (scenario.ScenarioExecutionStatus != ScenarioExecutionStatus.OK)
+                {
+                    status = scenario.ScenarioExecutionStatus.ToString();
+                    StepHelper.RaiseErrorOcurred(new InvalidOperationException("Scenario ended with error"));                    
+                }
+            }
+            else
                 StepHelper.RaiseErrorOcurred(new InvalidOperationException("Scenario ended with error"));
+                
 
             StepHelper.Log($"SCENARIO END: {info.Title}");
             StepHelper.Log($"STATUS: {status}");
@@ -145,6 +155,9 @@ namespace SpecFlowHelper.Steps
             StepHelper.LogNewLine();
 
             s_scenarioStopwatch.Stop();
+
+            if(scenario.ScenarioExecutionStatus != ScenarioExecutionStatus.OK)
+                scenario.Pending();
         }        
 
         public static void Abort()
