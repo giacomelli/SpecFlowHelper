@@ -153,6 +153,8 @@ namespace SpecFlowHelper.Steps
             ProcessHelper.WaitForExit(processName);
         }
 
+        [When(@"encerro o job")]
+        public void QuandoEncerroOJob() => QuandoEncerroOJob("");
 
         public static string GetLogFileName()
         {

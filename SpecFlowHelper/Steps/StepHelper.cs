@@ -515,7 +515,7 @@ namespace SpecFlowHelper.Steps
         /// </summary>
         /// <param name="by">O seletor dos elementos.</param>
         /// <param name="value">O valor.</param>
-        public static void EnterValue(By by, string value, bool isInputFile = false)
+        public static void EnterValue(By by, string value, bool isInputFile = false, int attempts = 10)
         {
             Attempt(() =>
             {
@@ -530,7 +530,7 @@ namespace SpecFlowHelper.Steps
 
                 element.SendKeys(value);
                 return true;
-            });
+            }, attempts);
         }
 
 
