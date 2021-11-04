@@ -52,7 +52,7 @@ namespace SpecFlowHelper.Configuration
             {
                 if (!string.IsNullOrEmpty(webProject.FolderName))
                 {
-                    ValidateProjectFolder(nameof(WebProjectConfig.FolderName), webProject.FolderName);
+                    // ValidateProjectFolder(nameof(WebProjectConfig.FolderName), webProject.FolderName);
                     ValidateInt("Port", webProject.Port);
                 }
             }
@@ -69,7 +69,7 @@ namespace SpecFlowHelper.Configuration
         {
             if (String.IsNullOrEmpty(VSProjectHelper.GetProjectFolderPath(propertyValue)))
             {
-                throw new InvalidOperationException("AppConfig.{0} is wroing: cannot find a project with folder '{1}'.".With(propertyName, propertyValue));
+                throw new InvalidOperationException("AppConfig.{0} is wrong: cannot find a project with folder '{1}'.".With(propertyName, propertyValue));
             }
         }
 
