@@ -57,13 +57,11 @@ namespace SpecFlowHelper.Steps.Strategies.AngularJS
         #region Methods
         public virtual void ThenTheGridShouldHaveRows(int rows)
         {
-            StepHelper.Attempt(() =>
+            AssertHelper.Attempt(() =>
             {
                 var elements = StepHelper.Driver.FindElements(GetRowFinder(CurrentSteps));
 
-                Assert.AreEqual(rows, elements.Count, "A grid deveria ter {0} linhas".With(rows));
-
-                return true;
+                return rows == elements.Count;
             });
         }
 

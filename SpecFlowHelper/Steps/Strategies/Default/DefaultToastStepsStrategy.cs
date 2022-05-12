@@ -12,12 +12,10 @@ namespace SpecFlowHelper.Steps.Strategies.Default
     {
         public virtual void ThenShouldShowTheToast(string message)
         {
-            StepHelper.Attempt(() =>
+            AssertHelper.Attempt(() =>
             {
                 var toastMessage = CurrentSteps.Toast().Message;
-                Assert.AreEqual(message, toastMessage, "A mensagem esperada no toast era: {0}, mas foi {1}".With(message, toastMessage));
-
-                return true;
+                return message == toastMessage;
             });
         }
         

@@ -24,14 +24,12 @@ namespace SpecFlowHelper.Steps.Strategies.Default
         /// <param name="filename">The filename.</param>
         public void ThenShouldExistsAFileWithTheNameInTheDownloadsFolder(string filename)
         {
-            StepHelper.Attempt(() =>
+            AssertHelper.Attempt(() =>
             {
                 StepHelper.Wait("arquivo aparecer na pasta de downloads");
                 var files = DownloadFolder.GetFiles(filename);
-                Assert.AreEqual(1, files.Length);
-                Assert.AreEqual(filename, Path.GetFileName(files[0]), filename);
 
-                return true;
+                return files.Length == 1 && Path.GetFileName(files[0]) == filename;
             });
         }
 
@@ -42,12 +40,10 @@ namespace SpecFlowHelper.Steps.Strategies.Default
         /// <param name="fileExtension">The file extension.</param>
         public void ThenShouldExistsFilesWithTheExtensionInTheDownloadsFolder(int fileCount, string fileExtension)
         {
-            StepHelper.Attempt(() =>
+            AssertHelper.Attempt(() =>
             {
                 var files = DownloadFolder.GetFiles("*.{0}".With(fileExtension));
-                Assert.AreEqual(fileCount, files.Length, fileExtension);
-
-                return true;
+                return fileCount == files.Length;
             });
         }
     }
