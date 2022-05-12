@@ -612,6 +612,17 @@ namespace SpecFlowHelper.Steps
 
             return text;
         }
+
+        public static bool ExistText(string text)
+        {
+            var by = By.CssSelector("body");
+            var regex = new Regex(Regex.Escape(text), RegexOptions.IgnoreCase);
+
+            return Attempt(() =>
+            {
+                return IsElementPresent(by) && regex.IsMatch(Driver.FindElement(by).Text);
+            });
+        }
         #endregion
 
         #region Helpers
